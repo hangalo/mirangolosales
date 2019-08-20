@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/templates/opac-artigos-template.xhtml">
+
+
+
+            <ui:define name="left">
+                left
+            </ui:define>
+
+            <ui:define name="content">
+                <f:view>
+                    <h:form>
+                        
+            </h:form>
+
+                    <h:form>
+                        <h2 style="text-align: center;"><h:outputText value="#{msg['artigo.catalogo']}"/></h2>
+                        <h:commandButton value="Imprimir    " actionListener="#{gestorRelatoriosMB.imprimirCatalogoArtigos}" style="font-weight: bold; font-size: 1.5em; margin-bottom: 14px;"/>
+                        <p:dataTable value="#{artigoMB.artigos}" var="item" scrollRows="50" scrollable="true" liveScroll="true" scrollHeight="400" >
+
+                            <p:column headerText="#{msg['artigo.nome.artigo']}" sortBy="#{item.nomeArtigo}">
+                                <h:outputText value="#{item.nomeArtigo}" />
+                            </p:column>
+
+                            
+                            <p:column headerText="#{msg['artigo.preco']}" sortBy="#{item.precoArtigo}">
+                                <h:outputText value="#{item.precoArtigo}">
+                                    <f:convertNumber currencySymbol = "AO" type = "currency" locale="ao_AO" />
+                                </h:outputText>
+                            </p:column>
+
+
+                            
+                            <p:column headerText="#{msg['artigo.existencias']}" sortBy="#{item.existencias}">
+                                 <h:outputText value="#{item.existencias}">
+                                    <f:convertNumber currencySymbol = "Kg" maxFractionDigits="0" type = "currency" locale="ao_AO" />
+                                </h:outputText>
+                            </p:column>
+                         
+
+                          
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['artigo.codigo.barras']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.codigoBarraArtigo}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['artigo.codigo.comercial']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.codigoComercialArtigo}"/>
+                            </p:column>
+
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['seccao.nome']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idSeccao.nomeSeccao}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['categoria.nome']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idCategoriaArtigo.nomeCategoriaArtigo}"/>
+                            </p:column>
+
+
+                        </p:dataTable>
+                    </h:form>
+
+
+
+
+
+
+                </f:view>
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

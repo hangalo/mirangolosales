@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/templates/templante_staff_add.xhtml">
+
+          
+
+            <ui:define name="left">
+                left
+            </ui:define>
+
+            <ui:define name="content">
+                <f:view>   <h:outputStylesheet library="css" name="personalizado.css" />
+
+                   
+                 
+                    <h:form>
+                        <p:commandButton value="#{app['button.novo']}" type="button" onclick="PF('dlg3').show();" /> 
+
+
+
+                        <p:dialog header="#{msg['artigo.novo']}" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="400">
+                           
+                            <h:form>
+
+                                <p:growl id="msg"/>
+                                <h:panelGrid columns="2">
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="#{msg['artigo.codigo.barras']}" for="codigoBarraArtigo" />
+
+                                        <p:inputText id="codigoBarraArtigo" value="#{artigoMB.artigo.codigoBarraArtigo}" title="CodigoBarraArtigo" />
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="#{msg['artigo.codigo.comercial']}" for="codigoComercialArtigo" />
+                                        <p:inputText id="codigoComercialArtigo" value="#{artigoMB.artigo.codigoComercialArtigo}" title="CodigoComercialArtigo" />
+
+                                    </h:panelGrid>
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="#{msg['artigo.nome.artigo']}" for="nomeArtigo" />
+                                    <p:inputText id="nomeArtigo" value="#{artigoMB.artigo.nomeArtigo}" title="NomeArtigo" size="60"/>
+                                </h:panelGrid>
+                                
+                                   <h:panelGrid columns="1">
+                                    <p:outputLabel value="#{msg['artigo.existencias']}" for="stock" />
+                                    <p:inputText id="stock" value="#{artigoMB.artigo.existencias}" title="stock" size="10"/>
+                                </h:panelGrid>
+                                
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="#{msg['artigo.preco']}:" for="precoArtigo" />
+                                    <p:inputText id="precoArtigo" value="#{artigoMB.artigo.precoArtigo}" title="PrecoArtigo"/> 
+                                  
+
+                                    <p:outputLabel value="#{msg['categoria.nome']}:" for="idCategoriaArtigo" />
+                                    <p:selectOneMenu id="idCategoriaArtigo" value="#{artigoMB.artigo.idCategoriaArtigo}" filter="true" filterMatchMode="startsWith" converter="categoriaArtigoConverter" style="width: 180px;" required="true"  requiredMessage="The IdCategoriaArtigo field is required.">
+                                        <f:selectItem itemLabel="#{app['seleccione']}" noSelectionOption="true" />
+
+                                        <f:selectItems value="#{categoriaArtigoMB.categoriaArtigos}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="2">
+                                    
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="#{msg['seccao.nome']}:" for="idSeccao" />
+                                        <p:selectOneMenu id="idSeccao" value="#{artigoMB.artigo.idSeccao}" filter="true" filterMatchMode="startsWith" required="true" requiredMessage="The IdSeccao field is required." converter="seccaoConverter" style="width: 180px;">
+                                            <f:selectItem itemLabel="#{app['seleccione']}" noSelectionOption="true" />
+                                            <f:selectItems value="#{seccaoMB.seccoes}"/>
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="2">
+
+                                    <p:commandButton value="#{app['button.guardar']}" actionListener="#{artigoMB.save}" ajax="false" update="msg" resetValues="true"/>
+
+                                   
+                                    <p:commandButton value="#{app['button.fechar']}"  immediate="true" ajax="false"/>
+
+                           
+
+
+                                </h:panelGrid>
+                            </h:form>
+
+
+
+                        </p:dialog>
+
+                    </h:form>
+                </f:view>
+
+            </ui:define>
+
+          
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,863 @@
+-- MySQL Administrator dump 1.4
+--
+-- ------------------------------------------------------
+-- Server version	5.7.17-log
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+--
+-- Create schema mirangolosales
+--
+
+CREATE DATABASE IF NOT EXISTS mirangolosales;
+USE mirangolosales;
+
+--
+-- Definition of table `acesso_sistema`
+--
+
+DROP TABLE IF EXISTS `acesso_sistema`;
+CREATE TABLE `acesso_sistema` (
+  `id_acesso_sistema` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(45) DEFAULT NULL,
+  `password` varchar(45) DEFAULT NULL,
+  `id_funcionario` int(11) NOT NULL,
+  PRIMARY KEY (`id_acesso_sistema`),
+  KEY `fk_acesso_sistema_funcionario1_idx` (`id_funcionario`),
+  CONSTRAINT `fk_acesso_sistema_funcionario1` FOREIGN KEY (`id_funcionario`) REFERENCES `funcionario` (`id_funcionario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `acesso_sistema`
+--
+
+/*!40000 ALTER TABLE `acesso_sistema` DISABLE KEYS */;
+/*!40000 ALTER TABLE `acesso_sistema` ENABLE KEYS */;
+
+
+--
+-- Definition of table `artigo`
+--
+
+DROP TABLE IF EXISTS `artigo`;
+CREATE TABLE `artigo` (
+  `id_artigo` int(11) NOT NULL AUTO_INCREMENT,
+  `codigo_barra_artigo` varchar(45) DEFAULT NULL,
+  `codigo_comercial_artigo` varchar(45) DEFAULT NULL,
+  `nome_artigo` varchar(45) DEFAULT NULL,
+  `preco_artigo` double DEFAULT NULL,
+  `id_categoria_artigo` int(11) NOT NULL,
+  `id_seccao` int(11) NOT NULL,
+  `existencias` double DEFAULT NULL,
+  `disponivel` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id_artigo`),
+  KEY `fk_artigo_categoria_artigo1_idx` (`id_categoria_artigo`),
+  KEY `fk_artigo_seccao1_idx` (`id_seccao`),
+  CONSTRAINT `fk_artigo_categoria_artigo1` FOREIGN KEY (`id_categoria_artigo`) REFERENCES `categoria_artigo` (`id_categoria_artigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_artigo_seccao1` FOREIGN KEY (`id_seccao`) REFERENCES `seccao` (`id_seccao`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `artigo`
+--
+
+/*!40000 ALTER TABLE `artigo` DISABLE KEYS */;
+INSERT INTO `artigo` (`id_artigo`,`codigo_barra_artigo`,`codigo_comercial_artigo`,`nome_artigo`,`preco_artigo`,`id_categoria_artigo`,`id_seccao`,`existencias`,`disponivel`) VALUES 
+ (1,'1111','CC1111CC','Peixe',20,1,1,473,NULL),
+ (2,'2222','CC2222CC','Arroz',30,1,1,20,NULL),
+ (3,'3333','CC3333CC','Feijão',5,2,2,59,NULL),
+ (4,'5555','CC4444CC','Macarrão',40,1,2,695,NULL),
+ (5,'5555','CC5555CC','Extrato de tomate',20,1,1,53,NULL),
+ (6,'6666','CC6666CC','Molho de tomate',12,1,1,2,NULL),
+ (7,'7777','CC7777CC','Açucar',80,1,1,11,NULL),
+ (8,'8888','CC8888CC','Sal',80,1,2,50,NULL),
+ (9,'9999','CC9999CC','Açucar',80,1,2,27,NULL),
+ (10,'1010','CC1010CC','Achocolatado',95,3,2,24,NULL),
+ (11,'1111','CC1111CC','Bolacha',5,3,2,187,NULL),
+ (12,'1212','CC1212CC','Café',5,3,2,382,NULL),
+ (13,'1313','CC1313CC','Farofa pronta',3,3,2,12,NULL),
+ (14,'1414','CC1414CC','Farinha de milho',46,4,1,16,NULL),
+ (15,'1515','CC1515CC','Farinha de mandioca',78,6,1,20,NULL),
+ (16,'1616','CC1616CC','Farinha de trigo',89,5,1,80,NULL),
+ (17,'1717','CC1717CC','Sardinha',80,5,1,90,NULL),
+ (18,'1818','CC1818CC','Atum',45,5,1,68,NULL),
+ (19,'1919','CC1919CC','Maionese',45,6,1,60,NULL),
+ (20,'2020','CC2020CC','Molho de pimenta',45,6,1,45,NULL),
+ (21,'2121','CC2121CC','Ervilha',1000,7,2,30,1),
+ (22,'2222','CC2222CC','Milho verde',34,7,2,45,NULL),
+ (23,'2323','CC2323CC','Doce de leite',56,7,2,77,1),
+ (24,'2424','CC2424CC','Goiabada',45,8,2,80,NULL),
+ (25,'2525','CC2525CC','Milho de pipoca',45,8,3,80,NULL),
+ (26,'2625','CC2626CC','Óleo de cozinha',45,8,3,80,NULL),
+ (27,'2727','CC2726CC','Leite em pó',45,9,4,80,NULL),
+ (28,'2827','CC2828CC','Creme de leite',45,9,4,65,NULL),
+ (29,'2929','CC2929CC','Leite condensado',67,10,4,89,NULL),
+ (30,'3030','CC3030CC','Pão de forma',67,10,5,89,NULL);
+/*!40000 ALTER TABLE `artigo` ENABLE KEYS */;
+
+
+--
+-- Definition of table `categoria_artigo`
+--
+
+DROP TABLE IF EXISTS `categoria_artigo`;
+CREATE TABLE `categoria_artigo` (
+  `id_categoria_artigo` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_categoria_artigo` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id_categoria_artigo`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `categoria_artigo`
+--
+
+/*!40000 ALTER TABLE `categoria_artigo` DISABLE KEYS */;
+INSERT INTO `categoria_artigo` (`id_categoria_artigo`,`nome_categoria_artigo`) VALUES 
+ (1,'Doces'),
+ (2,'Frutos do mar'),
+ (3,'Frutas'),
+ (4,'Carnes'),
+ (5,'Hortaliças'),
+ (6,'Cereais'),
+ (7,'Cadernos'),
+ (8,'Livros'),
+ (9,'Dicionarios'),
+ (10,'Peixe'),
+ (11,'Frutas Vermelhas'),
+ (12,'');
+/*!40000 ALTER TABLE `categoria_artigo` ENABLE KEYS */;
+
+
+--
+-- Definition of table `cliente`
+--
+
+DROP TABLE IF EXISTS `cliente`;
+CREATE TABLE `cliente` (
+  `id_cliente` int(11) NOT NULL AUTO_INCREMENT,
+  `numero_contribuinte` varchar(45) DEFAULT NULL,
+  `nome_cliente` varchar(45) DEFAULT NULL,
+  `sobrenome_cliente` varchar(45) DEFAULT NULL,
+  `casa_cliente` varchar(45) DEFAULT NULL,
+  `rua_cliente` varchar(45) DEFAULT NULL,
+  `bairro_cliente` varchar(45) DEFAULT NULL,
+  `distrito_cliente` varchar(45) DEFAULT NULL,
+  `id_municipio` int(11) NOT NULL,
+  `telefone_principal` varchar(45) DEFAULT NULL,
+  `telemovel_principal` varchar(45) DEFAULT NULL,
+  `email_principal` varchar(45) DEFAULT NULL,
+  `data_cadastro` date DEFAULT NULL,
+  PRIMARY KEY (`id_cliente`),
+  KEY `fk_cliente_municipio1_idx` (`id_municipio`),
+  CONSTRAINT `fk_cliente_municipio1` FOREIGN KEY (`id_municipio`) REFERENCES `municipio` (`id_municipio`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `cliente`
+--
+
+/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+INSERT INTO `cliente` (`id_cliente`,`numero_contribuinte`,`nome_cliente`,`sobrenome_cliente`,`casa_cliente`,`rua_cliente`,`bairro_cliente`,`distrito_cliente`,`id_municipio`,`telefone_principal`,`telemovel_principal`,`email_principal`,`data_cadastro`) VALUES 
+ (1,'11111','Ana','Maria',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL),
+ (2,'22222','Paulo','Jorge',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,NULL),
+ (3,'33333','Carla','Marisa',NULL,NULL,NULL,NULL,2,NULL,NULL,NULL,NULL),
+ (4,'44444','Bartolomeu','Hangalo','12','12','12','12',1,'12','12','12','2019-04-03'),
+ (5,'55555','Jorge','Fernando','56','56','56','56',2,'56','56','56','2019-04-02');
+/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
+
+
+--
+-- Definition of table `compra`
+--
+
+DROP TABLE IF EXISTS `compra`;
+CREATE TABLE `compra` (
+  `id_compra` int(11) NOT NULL AUTO_INCREMENT,
+  `data_compra` date DEFAULT NULL,
+  `preco_compra` double DEFAULT NULL,
+  `descrocao_compra` varchar(200) DEFAULT NULL,
+  `id_fornecedor` int(11) NOT NULL,
+  `id_artigo` int(11) NOT NULL,
+  PRIMARY KEY (`id_compra`),
+  KEY `fk_compra_fornecedor1_idx` (`id_fornecedor`),
+  KEY `fk_compra_artigo1_idx` (`id_artigo`),
+  CONSTRAINT `fk_compra_artigo1` FOREIGN KEY (`id_artigo`) REFERENCES `artigo` (`id_artigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_compra_fornecedor1` FOREIGN KEY (`id_fornecedor`) REFERENCES `fornecedor` (`id_fornecedor`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `compra`
+--
+
+/*!40000 ALTER TABLE `compra` DISABLE KEYS */;
+/*!40000 ALTER TABLE `compra` ENABLE KEYS */;
+
+
+--
+-- Definition of table `departamento`
+--
+
+DROP TABLE IF EXISTS `departamento`;
+CREATE TABLE `departamento` (
+  `id_departamento` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_departamento` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id_departamento`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `departamento`
+--
+
+/*!40000 ALTER TABLE `departamento` DISABLE KEYS */;
+INSERT INTO `departamento` (`id_departamento`,`nome_departamento`) VALUES 
+ (1,'Informatica'),
+ (2,'Contabilidade');
+/*!40000 ALTER TABLE `departamento` ENABLE KEYS */;
+
+
+--
+-- Definition of table `estoque`
+--
+
+DROP TABLE IF EXISTS `estoque`;
+CREATE TABLE `estoque` (
+  `id_estoque` int(11) NOT NULL AUTO_INCREMENT,
+  `id_artigo` int(11) NOT NULL,
+  `data_entrada_artigo` date DEFAULT NULL,
+  `quantidade_artigo` double DEFAULT NULL,
+  `disponivel` tinyint(1) DEFAULT NULL,
+  `validade` date DEFAULT NULL,
+  PRIMARY KEY (`id_estoque`),
+  KEY `fk_estoque_artigo1_idx` (`id_artigo`),
+  CONSTRAINT `fk_estoque_artigo1` FOREIGN KEY (`id_artigo`) REFERENCES `artigo` (`id_artigo`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `estoque`
+--
+
+/*!40000 ALTER TABLE `estoque` DISABLE KEYS */;
+INSERT INTO `estoque` (`id_estoque`,`id_artigo`,`data_entrada_artigo`,`quantidade_artigo`,`disponivel`,`validade`) VALUES 
+ (1,1,'2019-05-05',600,NULL,'2020-05-05'),
+ (2,2,'2019-06-06',300,NULL,'2020-05-05'),
+ (3,23,'2019-05-05',80,NULL,'2019-05-16'),
+ (4,21,'2019-05-05',45,1,'2019-05-16');
+/*!40000 ALTER TABLE `estoque` ENABLE KEYS */;
+
+
+--
+-- Definition of table `forma_pagamento`
+--
+
+DROP TABLE IF EXISTS `forma_pagamento`;
+CREATE TABLE `forma_pagamento` (
+  `id_forma_pagamento` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_forma_pagamento` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id_forma_pagamento`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `forma_pagamento`
+--
+
+/*!40000 ALTER TABLE `forma_pagamento` DISABLE KEYS */;
+INSERT INTO `forma_pagamento` (`id_forma_pagamento`,`nome_forma_pagamento`) VALUES 
+ (1,'Carta de Credito'),
+ (2,'A dinheiro'),
+ (3,'Credito Cliente');
+/*!40000 ALTER TABLE `forma_pagamento` ENABLE KEYS */;
+
+
+--
+-- Definition of table `fornecedor`
+--
+
+DROP TABLE IF EXISTS `fornecedor`;
+CREATE TABLE `fornecedor` (
+  `id_fornecedor` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_fornecedor` varchar(45) DEFAULT NULL,
+  `casa_fornecedor` varchar(45) DEFAULT NULL,
+  `rua_fornecedor` varchar(45) DEFAULT NULL,
+  `bairro_fornecedor` varchar(45) DEFAULT NULL,
+  `distrito_fornecedor` varchar(45) DEFAULT NULL,
+  `telefone_principal` varchar(45) DEFAULT NULL,
+  `telemovel_principal` varchar(45) DEFAULT NULL,
+  `email_fornecedor` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id_fornecedor`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `fornecedor`
+--
+
+/*!40000 ALTER TABLE `fornecedor` DISABLE KEYS */;
+INSERT INTO `fornecedor` (`id_fornecedor`,`nome_fornecedor`,`casa_fornecedor`,`rua_fornecedor`,`bairro_fornecedor`,`distrito_fornecedor`,`telefone_principal`,`telemovel_principal`,`email_fornecedor`) VALUES 
+ (1,'asasa','232','2323','2323','2332','3223','23','2332');
+/*!40000 ALTER TABLE `fornecedor` ENABLE KEYS */;
+
+
+--
+-- Definition of table `funcionario`
+--
+
+DROP TABLE IF EXISTS `funcionario`;
+CREATE TABLE `funcionario` (
+  `id_funcionario` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_funcionario` varchar(45) DEFAULT NULL,
+  `sobrenome_funcionario` varchar(45) DEFAULT NULL,
+  `casa_funcionario` varchar(45) DEFAULT NULL,
+  `rua_funcionario` varchar(45) DEFAULT NULL,
+  `bairro_funcionario` varchar(45) DEFAULT NULL,
+  `distrito_funcionario` varchar(45) DEFAULT NULL,
+  `id_municipio` int(11) NOT NULL,
+  `telefone_principal` varchar(45) DEFAULT NULL,
+  `telemovel_principal` varchar(45) DEFAULT NULL,
+  `email_principal` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id_funcionario`),
+  KEY `fk_cliente_municipio1_idx` (`id_municipio`),
+  CONSTRAINT `fk_cliente_municipio10` FOREIGN KEY (`id_municipio`) REFERENCES `municipio` (`id_municipio`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `funcionario`
+--
+
+/*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
+INSERT INTO `funcionario` (`id_funcionario`,`nome_funcionario`,`sobrenome_funcionario`,`casa_funcionario`,`rua_funcionario`,`bairro_funcionario`,`distrito_funcionario`,`id_municipio`,`telefone_principal`,`telemovel_principal`,`email_principal`) VALUES 
+ (1,'Santos',NULL,NULL,NULL,NULL,NULL,1,NULL,NULL,NULL),
+ (2,'Samuel',NULL,NULL,NULL,NULL,NULL,2,NULL,NULL,NULL),
+ (3,'12121','121212','1212','1212','1212','1212',1,'1212','1212','1212'),
+ (4,'44444','444444','4444','4444','4444','444',1,'4444','4444','4444'),
+ (5,'44444','444444','4444','4444','4444','444',1,'4444','4444','4444');
+/*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
+
+
+--
+-- Definition of table `itens_venda`
+--
+
+DROP TABLE IF EXISTS `itens_venda`;
+CREATE TABLE `itens_venda` (
+  `id_itens_venda` int(11) NOT NULL AUTO_INCREMENT,
+  `id_venda` int(11) NOT NULL,
+  `id_artigo` int(11) NOT NULL,
+  `quantidade_produto` double DEFAULT NULL,
+  `preco_venda` double DEFAULT NULL,
+  `taxa_iva` double DEFAULT '0',
+  PRIMARY KEY (`id_itens_venda`),
+  KEY `fk_itens_venda_artigo1_idx` (`id_artigo`),
+  KEY `fk_itens_venda_venda1_idx` (`id_venda`),
+  CONSTRAINT `fk_itens_venda_artigo1` FOREIGN KEY (`id_artigo`) REFERENCES `artigo` (`id_artigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_itens_venda_venda1` FOREIGN KEY (`id_venda`) REFERENCES `venda` (`id_venda`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `itens_venda`
+--
+
+/*!40000 ALTER TABLE `itens_venda` DISABLE KEYS */;
+INSERT INTO `itens_venda` (`id_itens_venda`,`id_venda`,`id_artigo`,`quantidade_produto`,`preco_venda`,`taxa_iva`) VALUES 
+ (1,1,1,2,20,14),
+ (2,1,2,4,40,14),
+ (3,2,6,1.7,12,14),
+ (4,2,7,2.4,80,14),
+ (5,2,1,6,20,14),
+ (6,2,4,3,40,14),
+ (7,2,2,1,30,14),
+ (8,2,5,1,20,14),
+ (9,2,6,1,12,14),
+ (10,2,7,1,80,14),
+ (11,2,1,1,20,14),
+ (12,2,2,1,30,14),
+ (13,2,7,2.8,80,14),
+ (14,2,6,2.3,12,14),
+ (15,2,4,1,40,14),
+ (16,3,3,1,5,14),
+ (17,4,1,1,20,14),
+ (18,4,7,2.3,80,14),
+ (19,4,6,2.1,12,14),
+ (20,4,2,3.4,30,14),
+ (21,4,4,1,40,14),
+ (22,4,5,1,20,14),
+ (23,5,6,1,12,14),
+ (24,5,7,1,80,14),
+ (25,5,1,6,20,0),
+ (26,7,1,25,20,0),
+ (27,8,5,5,20,0),
+ (28,8,4,5,40,0),
+ (29,8,2,5,30,0),
+ (30,10,6,10,12,0),
+ (31,10,7,65,80,0),
+ (32,11,1,1,20,0),
+ (33,11,5,1,20,0),
+ (34,12,3,1,5,0),
+ (35,12,5,1,20,0),
+ (36,12,1,1,20,0),
+ (37,13,11,1,5,0),
+ (38,13,21,1,1000,0),
+ (39,13,12,1,5,0),
+ (40,14,12,1,5,0),
+ (41,14,21,2,1000,0),
+ (42,14,2,6,30,0),
+ (43,14,10,6,95,0),
+ (44,15,28,1,45,0),
+ (45,15,21,3,1000,0),
+ (46,16,11,1,5,0),
+ (47,16,21,1,1000,0),
+ (48,17,21,1,1000,0),
+ (49,19,21,1,1000,0),
+ (50,19,12,2,5,0),
+ (51,20,28,2,45,0),
+ (52,20,9,1,80,0),
+ (53,21,28,1,45,0),
+ (54,21,9,1,80,0),
+ (55,21,23,1,56,0),
+ (56,21,7,1,80,0),
+ (57,23,11,1,5,0),
+ (58,23,21,1,1000,0),
+ (59,23,2,1,30,0),
+ (60,23,9,2,80,0),
+ (61,24,12,1,5,0),
+ (62,24,9,1,80,0),
+ (63,24,23,1,56,0),
+ (64,24,2,1,30,0),
+ (65,25,28,1,45,0),
+ (66,25,2,1,30,0),
+ (67,25,7,1,80,0),
+ (68,25,9,2,80,0),
+ (69,26,18,2,45,0),
+ (70,26,12,1,5,0),
+ (71,27,12,1,5,0),
+ (72,27,28,1,45,0),
+ (73,27,2,2,30,0),
+ (74,27,11,1,5,0),
+ (75,27,18,1,45,0),
+ (76,29,28,2,45,0),
+ (77,30,18,2,45,0),
+ (78,30,7,1,80,0),
+ (79,30,12,1,5,0),
+ (80,31,28,1,45,0),
+ (81,31,18,1,45,0),
+ (82,31,9,2,80,0),
+ (83,32,18,1,45,0),
+ (84,32,21,1,1000,0),
+ (85,33,11,1,5,0),
+ (86,34,11,1,5,0),
+ (87,34,12,1,5,0),
+ (88,34,9,2,80,0),
+ (89,35,12,4,5,14),
+ (90,35,21,2,1000,14),
+ (91,35,9,1,80,14),
+ (92,37,28,2,45,14),
+ (93,37,18,1,45,14),
+ (94,37,9,1,80,14),
+ (95,37,23,1,56,14),
+ (96,38,11,1,5,14),
+ (97,38,21,1,1000,14),
+ (98,38,2,1,30,14),
+ (99,38,12,1,5,14),
+ (100,40,28,1,45,14),
+ (101,40,11,3,5,14),
+ (102,40,2,1,30,14),
+ (103,40,7,1,80,14),
+ (104,42,2,2,30,14),
+ (105,42,11,2,5,14),
+ (106,42,12,1,5,14),
+ (107,42,18,1,45,14),
+ (108,44,28,2,45,14),
+ (109,44,12,2,5,14),
+ (110,45,11,1,5,14),
+ (111,45,21,1,1000,14),
+ (112,45,28,1,45,14),
+ (113,45,12,1,5,14),
+ (114,45,18,3,45,14);
+/*!40000 ALTER TABLE `itens_venda` ENABLE KEYS */;
+
+
+--
+-- Definition of table `municipio`
+--
+
+DROP TABLE IF EXISTS `municipio`;
+CREATE TABLE `municipio` (
+  `id_municipio` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_municipio` varchar(45) DEFAULT NULL,
+  `id_provincia` int(11) NOT NULL,
+  PRIMARY KEY (`id_municipio`),
+  KEY `fk_municipio_provincia_idx` (`id_provincia`),
+  CONSTRAINT `fk_municipio_provincia` FOREIGN KEY (`id_provincia`) REFERENCES `provincia` (`id_provincia`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `municipio`
+--
+
+/*!40000 ALTER TABLE `municipio` DISABLE KEYS */;
+INSERT INTO `municipio` (`id_municipio`,`nome_municipio`,`id_provincia`) VALUES 
+ (1,'Ambriz',1),
+ (2,'Bula Atumba',1),
+ (3,'Dande',1),
+ (4,'Dembos',1),
+ (5,'Nambuangongo',1),
+ (6,'Pango Aluquém',1),
+ (7,'Balombo',2),
+ (8,'Baia Farta',2),
+ (9,'Benguela',2),
+ (10,'Bocoio',2),
+ (11,'Caimbambo',2),
+ (12,'Catumbela',2),
+ (13,'Chongoroi',2),
+ (14,'Cubal',2),
+ (15,'Ganda',2),
+ (16,'Lobito',2),
+ (17,'Andulo',3),
+ (18,'Camacupa',3),
+ (19,'Catabola',3),
+ (20,'Chinguar',3),
+ (21,'Chitembo',3),
+ (22,'Cuemba',3),
+ (23,'Cunhinga',3),
+ (24,'Kuito',3),
+ (25,'Nharea',3),
+ (26,'Belize',4),
+ (27,'Buco-Zau',4),
+ (28,'Cabinda',4),
+ (29,'Cacongo',4),
+ (30,'Calai',5),
+ (31,'Cuangar',5),
+ (32,'Cuchi',5),
+ (33,'Cuito Cuanavale',5),
+ (34,'Dirico',5),
+ (35,'Mavinga',5),
+ (36,'Menongue',5),
+ (37,'Nancova',5),
+ (38,'Rivungo',5),
+ (39,'Cahama',8),
+ (40,'Cuanhama',8),
+ (41,'Curoca',8),
+ (42,'Cuvelai',8),
+ (43,'Namacunde',8),
+ (44,'Ombadja',8),
+ (45,'Bailundo',9),
+ (46,'Catchiungo',9),
+ (47,'Caala',9),
+ (48,'Ekuma',9),
+ (49,'Huambo',9),
+ (50,'Londuimbale',9),
+ (51,'Longonjo',9),
+ (52,'Mungo',9),
+ (53,'Tchicala-Tchiloanga',9),
+ (54,'Tchindjenje',9),
+ (55,'Ucuma',9),
+ (56,'Caconda',10),
+ (57,'Cacula',10),
+ (58,'Caluquembe',10),
+ (59,'Gambos',10),
+ (60,'Chibia',10),
+ (61,'Chicomba',10),
+ (62,'Chipindo',10),
+ (63,'Cuvango',10),
+ (64,'Humpata',10),
+ (65,'Jamba',10),
+ (66,'Lubango',10),
+ (67,'Matala',10),
+ (68,'Quilengues',10),
+ (69,'Quipungo',10),
+ (70,'Ambaca',6),
+ (71,'Banga',6),
+ (72,'Bolongongo',6),
+ (73,'Cambambe',6),
+ (74,'Cazengo',6),
+ (75,'Golungo Alto',6),
+ (76,'Gonguembo',6),
+ (77,'Lucala',6),
+ (78,'Quiculungo',6),
+ (79,'Samba Caju',6),
+ (80,'Cassongue',7),
+ (81,'Conda',7),
+ (82,'Ebo',7),
+ (83,'Libolo',7),
+ (84,'Mussende',7),
+ (85,'Porto Amboin',7),
+ (86,'Quibala',7),
+ (87,'Quilenda',7),
+ (88,'Seles',7),
+ (89,'Sumbe',7),
+ (90,'Waku Kungo',7),
+ (91,'Belas',11),
+ (92,'Cacuaco',11),
+ (93,'Cazenga',11),
+ (94,'Icolo e Bengo',11),
+ (95,'Luanda',11),
+ (96,'Quiçama',11),
+ (97,'Viana',11),
+ (98,'Cambulo',12),
+ (99,'Capenda-Camulemba',12),
+ (100,'Caungula',12),
+ (101,'Chitato',12),
+ (102,'Cuango',12),
+ (103,'Cuilo',12),
+ (104,'Lubalo',12),
+ (105,'Lukapa',12),
+ (106,'Xá-Muteba',12),
+ (107,'Cacolo',13),
+ (108,'Dala',13),
+ (109,'Muconda',13),
+ (110,'Saurimo',13),
+ (111,'Cacuso',14),
+ (112,'Calandula',14),
+ (113,'Cambundi-Catembo',14),
+ (114,'Cangandala',14),
+ (115,'Caombo',14),
+ (116,'Cuaba Nzogo',14),
+ (117,'Cunda-Dia-Baze',14),
+ (118,'Luquembo',14),
+ (119,'Malange',14),
+ (120,'Marimba',14),
+ (121,'Massango',14),
+ (122,'Mucari',14),
+ (123,'Quela',14),
+ (124,'Quirima',14),
+ (125,'Alto Zambeze',15),
+ (126,'Bundas',15),
+ (127,'Camanongue',15),
+ (128,'Léua',15),
+ (129,'Luau',15),
+ (130,'Luacano',15),
+ (131,'Luchazes',15),
+ (132,'Lumeje',15),
+ (133,'Moxico',15),
+ (134,'Bibala',16),
+ (135,'Camucuio',16),
+ (136,'Namibe',16),
+ (137,'Tômbua',16),
+ (138,'Virei',16),
+ (139,'Alto Cauale',17),
+ (140,'Ambuila',17),
+ (141,'Bembe',17),
+ (142,'Buengas',17),
+ (143,'Bungo',17),
+ (144,'Damba',17),
+ (145,'Macocola',17),
+ (146,'Mucaba',17),
+ (147,'Negage',17),
+ (148,'Puri',17),
+ (149,'Quimbele',17),
+ (150,'Quitexe',17),
+ (151,'Sanza Pombo',17),
+ (152,'Songo',17),
+ (153,'Uige',17),
+ (154,'Zombo',17),
+ (155,'Cuimba',18),
+ (156,'M\'Banza Kongo',18),
+ (157,'Noqui',18),
+ (158,'N\'Zeto',18),
+ (159,'Soyo',18),
+ (160,'Tomboco',18);
+/*!40000 ALTER TABLE `municipio` ENABLE KEYS */;
+
+
+--
+-- Definition of table `provincia`
+--
+
+DROP TABLE IF EXISTS `provincia`;
+CREATE TABLE `provincia` (
+  `id_provincia` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_provincia` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id_provincia`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `provincia`
+--
+
+/*!40000 ALTER TABLE `provincia` DISABLE KEYS */;
+INSERT INTO `provincia` (`id_provincia`,`nome_provincia`) VALUES 
+ (1,'Bengo'),
+ (2,'Benguela'),
+ (3,'Bié'),
+ (4,'Cabinda'),
+ (5,'Cuando Cubango'),
+ (6,'Cuanza Norte'),
+ (7,'Cuanza Sul'),
+ (8,'Cunene'),
+ (9,'Huambo'),
+ (10,'Huila'),
+ (11,'Luanda'),
+ (12,'Lunda Norte'),
+ (13,'Lunda Sul'),
+ (14,'Malange'),
+ (15,'Moxico'),
+ (16,'Namibe'),
+ (17,'Uige'),
+ (18,'Zaire');
+/*!40000 ALTER TABLE `provincia` ENABLE KEYS */;
+
+
+--
+-- Definition of table `seccao`
+--
+
+DROP TABLE IF EXISTS `seccao`;
+CREATE TABLE `seccao` (
+  `id_seccao` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_seccao` varchar(45) DEFAULT NULL,
+  `id_sector` int(11) NOT NULL,
+  PRIMARY KEY (`id_seccao`),
+  KEY `fk_seccao_sector1_idx` (`id_sector`),
+  CONSTRAINT `fk_seccao_sector1` FOREIGN KEY (`id_sector`) REFERENCES `sector` (`id_sector`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `seccao`
+--
+
+/*!40000 ALTER TABLE `seccao` DISABLE KEYS */;
+INSERT INTO `seccao` (`id_seccao`,`nome_seccao`,`id_sector`) VALUES 
+ (1,'Seccao1',1),
+ (2,'Seccao2',1),
+ (3,'Seccao3',1),
+ (4,'Seccao4',2),
+ (5,'121212',2);
+/*!40000 ALTER TABLE `seccao` ENABLE KEYS */;
+
+
+--
+-- Definition of table `sector`
+--
+
+DROP TABLE IF EXISTS `sector`;
+CREATE TABLE `sector` (
+  `id_sector` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_sector` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id_sector`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sector`
+--
+
+/*!40000 ALTER TABLE `sector` DISABLE KEYS */;
+INSERT INTO `sector` (`id_sector`,`nome_sector`) VALUES 
+ (1,'Sector 01'),
+ (2,'Sector02'),
+ (3,'Sector02'),
+ (4,'Sector 21'),
+ (5,'Sector 22'),
+ (6,'Sector 23');
+/*!40000 ALTER TABLE `sector` ENABLE KEYS */;
+
+
+--
+-- Definition of table `transportadora`
+--
+
+DROP TABLE IF EXISTS `transportadora`;
+CREATE TABLE `transportadora` (
+  `idtransportadora` int(11) NOT NULL,
+  PRIMARY KEY (`idtransportadora`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `transportadora`
+--
+
+/*!40000 ALTER TABLE `transportadora` DISABLE KEYS */;
+/*!40000 ALTER TABLE `transportadora` ENABLE KEYS */;
+
+
+--
+-- Definition of table `venda`
+--
+
+DROP TABLE IF EXISTS `venda`;
+CREATE TABLE `venda` (
+  `id_venda` int(11) NOT NULL AUTO_INCREMENT,
+  `data_venda` date DEFAULT NULL,
+  `valor_total` double DEFAULT NULL,
+  `desconto_iva_total` double DEFAULT NULL,
+  `id_cliente` int(11) NOT NULL,
+  `id_funcionario` int(11) DEFAULT NULL,
+  `id_forma_pagamento` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_venda`),
+  KEY `fk_venda_cliente1_idx` (`id_cliente`),
+  KEY `fk_venda_funcionario1_idx` (`id_funcionario`),
+  KEY `fk_venda_forma_pagamento1_idx` (`id_forma_pagamento`),
+  CONSTRAINT `fk_venda_cliente1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_venda_forma_pagamento1` FOREIGN KEY (`id_forma_pagamento`) REFERENCES `forma_pagamento` (`id_forma_pagamento`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_venda_funcionario1` FOREIGN KEY (`id_funcionario`) REFERENCES `funcionario` (`id_funcionario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `venda`
+--
+
+/*!40000 ALTER TABLE `venda` DISABLE KEYS */;
+INSERT INTO `venda` (`id_venda`,`data_venda`,`valor_total`,`desconto_iva_total`,`id_cliente`,`id_funcionario`,`id_forma_pagamento`) VALUES 
+ (1,'2019-01-03',NULL,NULL,1,1,0),
+ (2,'2019-01-03',NULL,NULL,2,1,0),
+ (3,'2019-04-20',5,NULL,1,NULL,NULL),
+ (4,'2019-04-20',391.2,NULL,3,NULL,NULL),
+ (5,'2019-04-21',212,NULL,4,NULL,3),
+ (6,'2019-04-21',0,NULL,4,NULL,3),
+ (7,'2019-04-21',500,NULL,3,NULL,3),
+ (8,'2019-04-21',450,NULL,2,NULL,1),
+ (9,'2019-04-21',0,NULL,2,NULL,1),
+ (10,'2019-04-21',5320,NULL,2,NULL,1),
+ (11,'2019-04-22',40,NULL,2,NULL,3),
+ (12,'2019-04-22',45,NULL,2,NULL,3),
+ (13,'2019-05-06',1010,NULL,1,NULL,1),
+ (14,'2019-05-06',2755,NULL,4,NULL,3),
+ (15,'2019-05-06',3045,NULL,2,NULL,1),
+ (16,'2019-05-06',1005,NULL,1,NULL,2),
+ (17,'2019-05-06',1000,NULL,2,NULL,1),
+ (18,'2019-05-06',0,NULL,2,NULL,1),
+ (19,'2019-05-06',1010,NULL,1,NULL,1),
+ (20,'2019-05-11',170,NULL,2,NULL,1),
+ (21,'2019-05-11',261,NULL,4,NULL,1),
+ (22,'2019-05-11',0,NULL,4,NULL,1),
+ (23,'2019-05-11',1195,NULL,2,NULL,2),
+ (24,'2019-05-11',171,NULL,3,NULL,2),
+ (25,'2019-05-11',315,NULL,3,NULL,3),
+ (26,'2019-05-11',95,NULL,1,NULL,3),
+ (27,'2019-05-11',160,NULL,3,NULL,1),
+ (28,'2019-05-11',0,NULL,3,NULL,1),
+ (29,'2019-05-11',90,NULL,3,NULL,2),
+ (30,'2019-05-11',175,NULL,1,NULL,1),
+ (31,'2019-05-11',250,NULL,3,NULL,1),
+ (32,'2019-05-11',1045,NULL,3,NULL,1),
+ (33,'2019-05-11',5,NULL,3,NULL,1),
+ (34,'2019-05-11',170,NULL,2,NULL,1),
+ (35,'2019-05-11',2100,NULL,2,NULL,3),
+ (36,'2019-05-11',0,NULL,2,NULL,3),
+ (37,'2019-05-11',271,NULL,2,NULL,3),
+ (38,'2019-05-12',1040,NULL,1,NULL,2),
+ (39,'2019-05-12',0,NULL,1,NULL,2),
+ (40,'2019-05-12',170,NULL,1,NULL,2),
+ (41,'2019-05-12',0,NULL,1,NULL,2),
+ (42,'2019-05-12',120,NULL,1,NULL,2),
+ (43,'2019-05-12',0,NULL,1,NULL,2),
+ (44,'2019-05-12',100,NULL,1,NULL,2),
+ (45,'2019-05-24',1190,NULL,3,NULL,2);
+/*!40000 ALTER TABLE `venda` ENABLE KEYS */;
+
+
+
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

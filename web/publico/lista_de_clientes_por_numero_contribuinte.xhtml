@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/templates/opac-clientes-template.xhtml">
+
+
+
+            <ui:define name="left">
+                left
+            </ui:define>
+
+            <ui:define name="content">
+
+                <f:view>
+                    <h:form style="margin-top: 20px" id="formBuascaClientesPorNumeroContribuinte">
+                        <h:messages showDetail="true" showSummary="true"/>
+                        <p:growl id="addMessages"/>
+                        <h:panelGrid columns="1">
+                            <h:outputLabel value="Procura cliente pelo numero de contribuinte"/>
+                            <p:autoComplete value="#{clienteMB.cliente}"
+                                            completeMethod="#{clienteMB.queryClientesPorNumeroContribuinte}"
+                                            var="cliente"
+                                            itemValue="#{cliente}"
+                                            itemLabel="#{cliente.numeroContribuinte}"   maxResults="10"  forceSelection="true" requiredMessage="Seleccionar um valor" converter="clienteConverter" size="40">
+
+                                <p:column>
+                                    <h:outputText value="#{cliente.numeroContribuinte} (Nome: #{cliente.numeroContribuinte} | Sobrenome: #{cliente.numeroContribuinte})"/>
+                                </p:column>
+
+                                <p:ajax event="itemSelect" listener="#{clienteMB.selectListenerNumeroContribuinteClienteAutoComplete}" update="addMessages :formClienteNC:dtClientesNC" />
+
+                            </p:autoComplete>
+                        </h:panelGrid>
+                    </h:form>
+
+                    <h:form id="formClienteNC">
+                       
+                        <p:dataTable id="dtClientesNC" value="#{clienteMB.clientesPorNumeroContribuite}" var="item">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['numero.registo']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idCliente}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nome']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nomeCliente}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['sobrenome']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sobrenomeCliente}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['casa']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.casaCliente}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['rua']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.ruaCliente}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['bairro']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.bairroCliente}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['distrito:']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.distritoCliente}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['telefone']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.telefonePrincipal}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['telemovel']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.telemovelPrincipal}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['email']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.emailPrincipal}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['data.cadastro']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.dataCadastro}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['municipio']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idMunicipio.nomeMuncipio}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+
+
+                </f:view>
+
+
+            </ui:define>
+
+        
+        </ui:composition>
+
+    </body>
+</html>

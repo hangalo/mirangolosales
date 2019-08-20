@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./WEB-INF/templates/template-staff.xhtml">
+
+            <ui:define name="top">
+                top
+            </ui:define>
+
+            <ui:define name="left">
+                <h:link outcome="admin/categoria-artigo" value="Categoria artigo"/>
+
+                <br/>
+
+                <h:link outcome="admin/formas-pagamento" value="#{msg['formapagamento.lista']}"/>
+
+                <br/>
+
+                <h:link outcome="admin/departamentos" value="#{msg['departamento.lista']}"/>
+
+                <br/>
+                <h:link outcome="admin/seccao-artigo" value="#{msg['artigo.seccao']}"/>
+
+                <br/>
+
+                <h:link outcome="admin/sectores" value="#{msg['artigo.sector']}"/>
+
+                <br/>
+
+                <h:link outcome="admin/artigos" value="#{msg['artigo.lista']}"/>
+                <br/>
+
+                <h:link outcome="admin/clientes" value="#{msg['cliente.lista']}"/>
+                <br/>
+
+                <h:link outcome="admin/fornecedores" value="#{msg['fornecedor.lista']}"/>
+
+                <br/>
+
+                <h:link outcome="admin/funcionarios" value="#{msg['funcionario.lista']}"/>
+
+                <br/>
+
+                <h:link outcome="admin/venda" value="#{msg['venda.nova']}"/>
+                <br/>
+                <h:link outcome="admin/venda_autocomplete" value="Venda com autocomplite"/>
+
+
+            </ui:define>
+
+            <ui:define name="content">
+                <h:outputLabel value="Vendas"/> ||
+                 <h:outputLabel value="Clientes"/> ||
+                 <h:outputLabel value="Catalogo de Artigos"/> ||
+                  <h:outputLabel value="Diário de vendas"/>
+            </ui:define>
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

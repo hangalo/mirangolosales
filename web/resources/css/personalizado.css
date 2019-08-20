@@ -1,0 +1,22 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 21-mar-2019, 22.10.56
+    Author     : Francis
+*/
+/*
+.ui-widget,
+.ui-widget .ui-widget {
+    font-size: 12px !important;
+}*/
+
+
+.ui-widget {
+	font-family: Verdana,Arial,sans-serif;
+	font-size: 110% !important;
+}
+
+.ui-widget .ui-widget { font-size: 4em; }

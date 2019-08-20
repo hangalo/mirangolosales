@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/templates/opac-relatorios-template.xhtml">
+
+           
+
+            <ui:define name="content">
+                  <f:view>
+                 <h:form id="formCarregaCliente">
+                        <h:messages/>
+                        <p:panel header="Facturas do Cliente:">
+
+                            <h:panelGrid columns="6" cellspacing="5%">
+                                <h:outputLabel value="Cliente"/>
+                                <p:selectOneMenu id="cliente" value="#{vendaMB.cliente}" valueChangeListener="#{vendaMB.loadCliente}" onchange="submit()" immediate="true" converter="clienteConverter" required="true" requiredMessage="Campo obligatoriio." filter="true" filterMatchMode="startsWith">
+                                    <f:selectItem itemLabel="== Seleziona ==" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItems value="#{clienteMB.carregarClientes}"/>
+                                </p:selectOneMenu>
+                             
+                            </h:panelGrid>
+
+                        </p:panel>
+                    </h:form>
+
+              
+                    <h:form>
+                        <p:dataTable value="#{vendaMB.vendasAoCliente}" var="item">
+                            
+                            <p:column headerText="#{msg['venda.numero']}" sortBy="#{item.idVenda}">
+                                    <h:outputText value="#{item.idVenda}">
+                                   
+                                </h:outputText>
+                            </p:column>
+                            
+                            
+                            <p:column headerText="#{msg['data']}" sortBy="#{item.dataVenda}">
+                                <h:outputText value="#{item.dataVenda}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+                            
+                            <p:column headerText="#{msg['total']}" sortBy="#{item.valorTotal}">
+                                    <h:outputText value="#{item.valorTotal}">
+                                    <f:convertNumber currencySymbol = "AO" maxFractionDigits="2" type = "currency" locale="ao_AO" />
+                                </h:outputText>
+                            </p:column>
+                            
+                            
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+
+                
+                
+                
+            </ui:define>
+
+         
+
+        </ui:composition>
+
+    </body>
+</html>

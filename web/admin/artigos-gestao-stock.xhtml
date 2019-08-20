@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/templates/templante_staff_add.xhtml">
+
+
+
+            <ui:define name="left">
+                left
+            </ui:define>
+
+            <ui:define name="content">
+                <f:view>
+                    <h:form style="margin-top: 20px" id="adicionarProdutos">
+                        <h:messages showDetail="true" showSummary="true"/>
+                        <p:growl id="addMessages"/>
+                        <h:panelGrid columns="1">
+                            <h:outputLabel value="Procura artigo por nome"/>
+                            <p:autoComplete value="#{artigoMB.artigo}"
+                                            completeMethod="#{artigoMB.queryArtigos}"
+                                            var="artigo"
+                                            itemValue="#{artigo}"
+                                            itemLabel="#{artigo.nomeArtigo}"   maxResults="10" dropdown="true" forceSelection="true" requiredMessage="Seleccionar um valor" converter="artigoConverter" size="40">
+
+                                <p:column>
+                                    <h:outputText value="#{artigo.nomeArtigo} (Stock: #{artigo.existencias} | Preço: #{artigo.precoArtigo})"/>
+                                </p:column>
+
+                                <p:ajax event="itemSelect" listener="#{artigoMB.selectListenerArtgiosPorNomeAutoComplete}" update="addMessages :formArtigosPorNome:dtArtigosPorNome" />
+
+                            </p:autoComplete>
+                        </h:panelGrid>
+                    </h:form>
+
+                    <h:form id="formArtigosPorNome">
+                        <h2><h:outputText value="#{msg['artigo.lista']}"/></h2>
+                        <p:dataTable id="dtArtigosPorNome" value="#{artigoMB.artigosPorNomes}" var="item" scrollRows="50" scrollable="true" liveScroll="true" scrollHeight="400" >
+
+                            <p:column headerText="#{msg['artigo.nome.artigo']}" sortBy="#{item.nomeArtigo}">
+                                <h:outputText value="#{item.nomeArtigo}" />
+                            </p:column>
+
+
+                            <p:column headerText="#{msg['artigo.preco']}" sortBy="#{item.precoArtigo}">
+                                <h:outputText value="#{item.precoArtigo}">
+                                    <f:convertNumber currencySymbol = "AO" type = "currency" locale="ao_AO" />
+                                </h:outputText>
+                            </p:column>
+
+
+
+                            <p:column headerText="#{msg['artigo.existencias']}" sortBy="#{item.existencias}">
+                                <h:outputText value="#{item.existencias}">
+                                    <f:convertNumber currencySymbol = "Kg" maxFractionDigits="0" type = "currency" locale="ao_AO" />
+                                </h:outputText>
+                            </p:column>
+
+
+
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['artigo.codigo.barras']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.codigoBarraArtigo}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['artigo.codigo.comercial']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.codigoComercialArtigo}"/>
+                            </p:column>
+
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['seccao.nome']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idSeccao.nomeSeccao}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['categoria.nome']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idCategoriaArtigo.nomeCategoriaArtigo}"/>
+                            </p:column>
+
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['categoria.nome']}"/>
+                                </f:facet>
+                                <h:selectBooleanCheckbox value="#{item.disponivel}"/>
+                            </p:column>
+
+                            <p:column headerText="#{app.operacoes}" style="width: 116px">
+
+                                <p:commandButton icon="ui-icon-pencil" update=":formActualizarStock:actualizarStock" oncomplete="PF('dialogoActualizarStock').show();" >
+                                    <f:setPropertyActionListener target="#{artigoMB.artigo}" value="#{item}"/>
+                                </p:commandButton>
+
+
+
+
+                            </p:column>
+
+                        </p:dataTable>
+                    </h:form>
+
+
+                    <h:form id="formActualizarStock">
+                        <p:growl id="growl" showDetail="true" sticky="true"/>
+                        <p:dialog header="Actualizar Stock" id="actualizarStock" widgetVar="dialogoActualizarStock" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+
+
+
+                            <p:growl id="msg"/>
+                            <h:panelGrid columns="2">
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="#{msg['artigo.codigo.barras']}" for="codigoBarraArtigo" />
+
+                                    <p:inputText id="codigoBarraArtigo" value="#{artigoMB.artigo.codigoBarraArtigo}" title="CodigoBarraArtigo" readonly="true"/>
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="#{msg['artigo.codigo.comercial']}" for="codigoComercialArtigo" />
+                                    <p:inputText id="codigoComercialArtigo" value="#{artigoMB.artigo.codigoComercialArtigo}" title="CodigoComercialArtigo" readonly="true"/>
+
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="1">
+                                <p:outputLabel value="#{msg['artigo.nome.artigo']}" for="nomeArtigo" />
+                                <p:inputText id="nomeArtigo" value="#{artigoMB.artigo.nomeArtigo}" title="NomeArtigo" size="60" readonly="true"/>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2">
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="#{msg['artigo.existencias']}" for="stock" />
+                                    <p:inputText id="stock" value="#{artigoMB.artigo.existencias}" title="stock" size="10"/>
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="#{msg['data.validade']}" for="validade" />
+                                    <p:calendar id="validade" value="#{estoqueMB.estoque.validade}" pattern="dd/MM/yyyy" title="validade" size="10"/>
+                                </h:panelGrid>
+
+
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="1">
+                                <p:outputLabel value="#{msg['artigo.preco']}:" for="precoArtigo" />
+                                <p:inputText id="precoArtigo" value="#{artigoMB.artigo.precoArtigo}" title="PrecoArtigo" /> 
+
+
+                                <p:outputLabel value="#{msg['categoria.nome']}:" for="idCategoriaArtigo" />
+                                <p:selectOneMenu id="idCategoriaArtigo" value="#{artigoMB.artigo.idCategoriaArtigo}" disabled="true" filter="true" filterMatchMode="startsWith" converter="categoriaArtigoConverter" style="width: 180px;" required="true"  requiredMessage="The IdCategoriaArtigo field is required." >
+                                    <f:selectItem itemLabel="#{app['seleccione']}" noSelectionOption="true" />
+
+                                    <f:selectItems value="#{categoriaArtigoMB.categoriaArtigos}"/>
+                                </p:selectOneMenu>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2">
+
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="#{msg['seccao.nome']}:" for="idSeccao" />
+                                    <p:selectOneMenu id="idSeccao" value="#{artigoMB.artigo.idSeccao}" disabled="true" filter="true"  filterMatchMode="startsWith" required="true" requiredMessage="The IdSeccao field is required." converter="seccaoConverter" style="width: 180px;">
+                                        <f:selectItem itemLabel="#{app['seleccione']}" noSelectionOption="true" />
+                                        <f:selectItems value="#{seccaoMB.seccoes}" />
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="1">
+                                <p:outputLabel value="#{msg['artigo.existencias']}" for="disponivel" />
+                                <h:selectBooleanCheckbox id="disponivel" value="#{artigoMB.artigo.disponivel}" title="stock" />
+                            </h:panelGrid>
+
+                            <h:panelGrid columns="2">
+
+                                <p:commandButton value="#{app['button.guardar']}" actionListener="#{artigoMB.edit}" ajax="false" update="msg" resetValues="true"/>
+
+
+                                <p:commandButton value="#{app['button.fechar']}"  immediate="true" ajax="false"/>
+
+
+
+
+                            </h:panelGrid>
+
+                        </p:dialog>
+                    </h:form>
+
+
+
+                </f:view>
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

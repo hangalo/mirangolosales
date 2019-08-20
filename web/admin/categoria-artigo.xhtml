@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+          <ui:composition template="./../WEB-INF/templates/templante_staff_add.xhtml">
+
+          
+
+            <ui:define name="left">
+                left
+            </ui:define>
+
+            <ui:define name="content">
+              
+                <h:form id="formCategoriaArtigo">
+                    <p:growl id="glGuardar"/>
+                    <h:panelGrid columns="1">
+                        <h:outputLabel value=" Categoria"/>
+                        <h:inputText value="#{categoriaArtigoMB.categoriaArtigo.nomeCategoriaArtigo}"/>
+                                       
+                    </h:panelGrid>
+                    <p:commandButton value="#{app['button.guardar']}" actionListener="#{categoriaArtigoMB.save}" ajax="false" update="glGuardar">
+                    <p:ajax update="formCategoriaArtigo" resetValues="true" />
+                    </p:commandButton>
+                </h:form>
+                
+                <f:view>
+
+
+                    <h:form>
+                        <h1><h:outputText value="List"/></h1>
+                        <p:dataTable value="#{categoriaArtigoMB.categoriaArtigos}" var="item">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="IdCategoriaArtigo"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idCategoriaArtigo}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="NomeCategoriaArtigo"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nomeCategoriaArtigo}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+
+                
+            </ui:define>
+
+          
+
+        </ui:composition>
+
+    </body>
+</html>

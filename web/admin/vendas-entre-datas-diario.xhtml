@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/templates/opac-vendas-template.xhtml">
+
+           
+
+            <ui:define name="content">
+               
+                
+                <f:view>
+                      <h:form id="formDadosDiario">
+                        <h:messages/>
+                        <p:panel header="Diário de vendas">
+
+                            <h:panelGrid columns="6" cellspacing="5%">
+                                <h:outputLabel value="Início"/>
+                                <p:calendar value="#{vendaMB.inicio}" pattern="dd/MM/yyyy" id="inicio"/>
+                                <h:outputLabel value="Fim"/>
+                                <p:calendar value="#{vendaMB.fim}" pattern="dd/MM/yyyy" id="fim"/>
+                                <h:commandButton value="Cercare..." styleClass="but but-primary" actionListener="#{vendaMB.executarBuscarVendasEntreDatas}">
+                                    <f:ajax execute="formDadosDiario:inicio formDadosDiario:fim" render=":formDiario:dtDiario"/>
+                                </h:commandButton>
+                            </h:panelGrid>
+
+                        </p:panel>
+
+                    </h:form>
+                  
+                        
+                    
+                    <h:form id="formDiario">
+                        <p:dataTable id="dtDiario" value="#{vendaMB.diarioVendas}" var="item">
+                            
+                            <p:column headerText="#{msg['venda.numero']}" sortBy="#{item.idVenda}">
+                                    <h:outputText value="#{item.idVenda}">
+                                   
+                                </h:outputText>
+                            </p:column>
+                            
+                            
+                            <p:column headerText="#{msg['data']}" sortBy="#{item.dataVenda}">
+                                <h:outputText value="#{item.dataVenda}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </p:column>
+                            
+                            <p:column headerText="#{msg['total']}" sortBy="#{item.valorTotal}">
+                                    <h:outputText value="#{item.valorTotal}">
+                                    <f:convertNumber currencySymbol = "AO" maxFractionDigits="2" type = "currency" locale="ao_AO" />
+                                </h:outputText>
+                            </p:column>
+                            
+                            
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+
+                
+                
+            </ui:define>
+
+          
+
+        </ui:composition>
+
+    </body>
+</html>

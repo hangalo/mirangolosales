@@ -1,0 +1,179 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/templates/template-staff.xhtml">
+
+            <ui:define name="top">
+                top
+            </ui:define>
+
+            <ui:define name="left">
+                left
+            </ui:define>
+
+            <ui:define name="content">
+
+                <f:view>
+
+
+                    <h:form>
+                        <h1><h:outputText value="#{msg['fornecedor.lista']}"/></h1>
+                        <p:dataTable value="#{fornecedorMB.fornecedores}" var="item">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['numero.registo']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idFornecedor}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['nome']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nomeFornecedor}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['casa']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.casaFornecedor}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['rua']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.ruaFornecedor}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['bairro']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.bairroFornecedor}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['distrito:']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.distritoFornecedor}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['telefone']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.telefonePrincipal}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['telemovel']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.telemovelPrincipal}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['email']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.emailFornecedor}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+
+                    <h:form>
+                        <p:commandButton value="#{app['button.novo']}" type="button" onclick="PF('dlg3').show();" /> 
+
+                        <p:dialog header="#{msg['fornecedor']}" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="400">
+                            
+
+
+                            <h:form>
+                                
+                          
+                                
+                                  <p:growl id="msg"/>
+                                <h:panelGrid columns="2">
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="#{msg['nome']}" for="nome" />
+                                        <p:inputText id="nome" value="#{fornecedorMB.fornecedor.nomeFornecedor}" title="Nome" size="40" />
+                                    </h:panelGrid>
+
+                                   
+                                </h:panelGrid> 
+
+
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="#{msg['casa']}" for="casa" />
+                                    <p:inputText id="casa" value="#{fornecedorMB.fornecedor.casaFornecedor}" title="Casa" size="10" />
+                                </h:panelGrid>
+
+                                <h:panelGrid columns="3">
+                                    <h:panelGrid columns="1">
+
+                                        <p:outputLabel value="#{msg['rua']}" for="rua" />
+                                        <p:inputText id="rua" value="#{fornecedorMB.fornecedor.ruaFornecedor}" title="Rua" />
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="#{msg['bairro']}" for="bairro" />
+                                        <p:inputText id="bairro" value="#{fornecedorMB.fornecedor.bairroFornecedor}" title="Bairro" size="30" />
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="#{msg['distrito:']}" for="distrito" />
+                                        <p:inputText id="distrito" value="#{fornecedorMB.fornecedor.distritoFornecedor}" title="Distrito" />
+                                    </h:panelGrid>   
+                                </h:panelGrid>   
+
+
+                                <h:panelGrid columns="3">
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="#{msg['telefone']}" for="telefonePrincipal" />
+                                        <p:inputText id="telefonePrincipal" value="#{fornecedorMB.fornecedor.telefonePrincipal}" title="TelefonePrincipal" />
+                                    </h:panelGrid>   
+
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="#{msg['telemovel']}" for="telemovelPrincipal" />
+                                        <p:inputText id="telemovelPrincipal" value="#{fornecedorMB.fornecedor.telemovelPrincipal}" title="TelemovelPrincipal" size="30" />
+                                    </h:panelGrid>  
+
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="#{msg['email']}" for="emailPrincipal" />
+                                        <p:inputText id="emailPrincipal" value="#{fornecedorMB.fornecedor.emailFornecedor}" title="EmailPrincipal" />
+                                    </h:panelGrid>  
+                                </h:panelGrid>
+
+
+                                      
+                                  
+
+                                        <p:commandButton value="#{app['button.guardar']}" actionListener="#{fornecedorMB.save}" ajax="false" resetValues="true" update="msg">
+
+                                    </p:commandButton>
+                                 <p:commandButton value="#{app['button.fechar']}" ajax="true" immediate="true"/>
+
+                                
+                                
+                                
+                               
+                            </h:form>
+
+                            
+                            
+                        </p:dialog>
+
+                    </h:form>
+                </f:view>
+
+
+
+            </ui:define>
+
+          
+
+        </ui:composition>
+
+    </body>
+</html>

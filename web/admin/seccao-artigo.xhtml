@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+         <ui:composition template="./../WEB-INF/templates/templante_staff_add.xhtml">
+
+           
+
+            <ui:define name="left">
+                left
+            </ui:define>
+
+            <ui:define name="content">
+                <f:view>
+
+                    <h:form>
+                          <p:commandButton value="#{app['button.novo']}" type="button" onclick="PF('dlg3').show();" /> 
+                    </h:form>
+                    <h:form id="formSeccoes">
+                         <h1><h:outputText value="#{msg['seccao.ista']}"/></h1>
+                        <p:dataTable value="#{seccaoMB.seccoes}" var="item">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['numero.registo']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idSeccao}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['seccao.nome']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nomeSeccao}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{msg['sector.nome']}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idSector.nomeSector}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                    <h:form>
+                      
+
+                        <p:dialog header="#{msg['seccao.nova']}" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="200">
+
+
+                            <h:form>
+                                <p:growl id="glGuardar"/>
+                               
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="#{msg['seccao.nome']}" for="nomeSeccao" />
+                                    <p:inputText id="nomeSeccao" value="#{seccaoMB.seccao.nomeSeccao}" title="NomeSeccao" size="40"/>
+                                    
+                                    </h:panelGrid>
+                                
+                                <h:panelGrid columns="1">
+                                    <p:outputLabel value="#{msg['sector.nome']}" for="idSector" />
+                                    <p:selectOneMenu id="idSector" value="#{seccaoMB.seccao.idSector}" filter="true" filterMatchMode="startsWith" required="true" requiredMessage="The IdSector field is required." converter="sectorConverter" >
+                                        
+                                         <f:selectItem itemLabel="== Seleziona ==" itemValue="#{null}" noSelectionOption="true"/>
+                                         <f:selectItems value="#{sectorMB.sectores}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>
+                                
+                                   <h:panelGrid columns="2">
+
+                                       <p:commandButton value="#{app['button.guardar']}" actionListener="#{seccaoMB.save}" ajax="false"  update="glGuardar :formSeccoes" resetValues="true">
+
+                                    </p:commandButton>
+                                       <p:commandButton value="#{app['button.fechar']}"  immediate="true" ajax="false">
+
+                                    </p:commandButton>
+
+
+                                </h:panelGrid>
+                            </h:form>
+
+                        </p:dialog>
+                    </h:form>
+                </f:view>
+
+
+            </ui:define>
+
+       
+
+        </ui:composition>
+
+    </body>
+</html>

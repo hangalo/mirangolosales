@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <body>
+
+
+        <ui:composition template="./../WEB-INF/templates/opac-vendas-template.xhtml">
+
+
+
+            <ui:define name="content">
+
+                <h:form id="formFactura">
+                    <p:growl id="msgs" showDetail="true"/>
+
+                    <h:panelGrid columns="2" style="width: 100%">
+                        <h:panelGrid columns="1" style="margin-left: 12px;">
+                            <p:panel header="Factura N.º: #{carrinhoBean.facturaActual}" >
+                                <h:panelGrid columns="3">
+
+                                    <h:panelGrid columns="1" style="width:200px">
+                                        <p:outputLabel value="Cliente:" />
+                                        <p:selectOneMenu style="width:300px" value="#{vendaMB.venda.idCliente}" id="cliente" filter="true" filterMatchMode="startsWith" label="Cliente"  required="true" converter="clienteConverter">
+                                            <f:selectItem itemLabel="--Seleccionar Cliente--" value="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{clienteMB.carregarClientes}"/>
+                                        </p:selectOneMenu>
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel value="Forma de Pagamento:" for="formapagamento" />
+                                        <p:selectOneRadio id="formapagamento" value="#{vendaMB.venda.idFormaPagamento}" required="true"  converter="formaPagamentoConverter" layout="pageDirection">
+                                            <f:selectItems value="#{formaPagamentoMB.carregarFormaPagamentos}"/>
+                                        </p:selectOneRadio>
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="1">
+                                        <h:outputLabel value="Data:"/>
+                                        <h:inputText value="#{vendaMB.venda.dataVenda}" size="6" style="text-align: center">
+                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                        </h:inputText>        
+
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </p:panel>
+
+                            <h:panelGrid columns="1" id="pcarrinho">
+                                <p:dataTable value="#{carrinhoBean.carrinho}" var="i" editable="true" editMode="cell" id="dadosFactura">
+                                    <p:ajax event="cellEdit" listener="#{carrinhoBean.onCellEdit}" update=":formFactura:msgs, :formFactura:totalSoma"/>
+                                    <p:column headerText="Nome">
+                                        <h:outputText value="#{i.idArtigo.nomeArtigo}"/>
+                                    </p:column>
+
+                                    <p:column headerText="Preço">
+                                        <h:outputText value="#{i.idArtigo.precoArtigo}"/>
+                                    </p:column>
+
+
+
+                                    <p:column headerText="Qtde">
+                                        <p:cellEditor>
+                                            <f:facet name="output"> 
+                                                <h:outputText value="#{i.quantidadeProduto}"/>
+                                            </f:facet>
+
+                                            <f:facet name="input" > 
+                                                <p:inputText id="modelInput" value="#{i.quantidadeProduto}" style="width: 100%" >
+                                                    <f:ajax event="change" render="subtotal"/>
+                                                </p:inputText>
+                                            </f:facet>
+
+                                        </p:cellEditor>
+                                    </p:column>
+
+                                    <p:column>
+                                        <f:facet name="header">Sub Total</f:facet>
+                                        <h:outputText id="subtotal" value="#{i.idArtigo.precoArtigo * i.quantidadeProduto}"/>
+                                    </p:column> 
+
+
+                                    <p:column headerText="Operacao">
+                                        <h:form id="eliminar">
+                                            <h:commandLink value="Eliminar" action="#{carrinhoBean.delete(i)}" onclick="return confirm('Deseja eliminar o Item do carrinho ?')">
+                                                <f:ajax execute="eliminar" render=":formFactura"/>
+                                            </h:commandLink>
+                                        </h:form>
+
+                                    </p:column>
+                                </p:dataTable>
+                            </h:panelGrid>
+
+                            <h:outputText id="totalSoma" value="#{'Total  pagar: '}#{carrinhoBean.suma()} Kwanzas" style="color: #036fab; font-size: 1.8em;"/>
+
+
+
+
+
+                        </h:panelGrid>
+
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <h:commandButton value="Registar compra"   actionListener="#{carrinhoBean.registarCompra}" style="font-weight: bold"/>
+                        <h:form id="limpar">
+                            <h:commandButton value="Limpar tudo"   action="#{carrinhoBean.limparCarrinho()}" style="font-weight: bold"> 
+                                <f:ajax execute="limpar" render=":formFactura"/>
+                            </h:commandButton> 
+                        </h:form>
+                        
+                      
+                    </h:panelGrid>
+                </h:form>
+               
+                <hr/>
+
+
+                <h:form style="margin-top: 20px" id="adicionarProdutos">
+                    <h:messages showDetail="true" showSummary="true"/>
+                    <p:growl id="addMessages"/>
+                    <h:panelGrid columns="1">
+                        <h:outputLabel value="Adicionar Produtos" style="font-weight: bold"/>
+                        <p:autoComplete value="#{artigoMB.artigo}"
+                                        completeMethod="#{artigoMB.queryArtigos}"
+                                        var="artigo"
+                                        itemValue="#{artigo}"
+                                        itemLabel="#{artigo.nomeArtigo}"   maxResults="10" dropdown="true" forceSelection="true" requiredMessage="Seleccionar um valor" converter="artigoConverter" size="40">
+
+                            <p:column>
+                                <h:outputText value="#{artigo.nomeArtigo} (Stock: #{artigo.existencias} | Preço: #{artigo.precoArtigo})"/>
+                            </p:column>
+
+                            <p:ajax event="itemSelect" listener="#{artigoMB.selectListenerNomeArtgioAutoComplete}" update="addMessages :formFactura:dadosFactura :formFactura:totalSoma" />
+
+                        </p:autoComplete>
+                    </h:panelGrid>
+                </h:form>
+
+                <h:form>
+                    <center>
+                        <h:link outcome="/home-pages/vendas-home">
+                            <h:graphicImage library="imagens" name="exit.png" height="30" width="30"/>
+                        </h:link>
+                    </center>
+
+                </h:form>
+
+
+
+            </ui:define>
+
+          
+
+        </ui:composition>
+
+
+
+
+
+
+    </body>
+</html>

@@ -1,0 +1,115 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 1-apr-2019, 11.45.22
+    Author     : informatica
+*/
+body{
+    background-color: #AFAFAF;
+}
+#container{
+    overflow: auto;
+    width: 100%;
+    padding: 1em;
+    background-color: #AFAFAF;
+    margin-top: 20px;
+
+
+}
+
+#container-menu{
+    /* overflow: auto;*/
+    width: 97.8%;
+    padding: 1em;
+    background-color: #AFAFAF;
+    margin-top: 20px;
+
+
+}
+#box-container-menu{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#header{
+    font-family: “Duru Sans”, Verdana, sans-serif;
+    text-align: center;
+    color: #660000;
+    font-weight: bold;
+    background-color: #036fab;
+    height: 100px;
+    font-size: 2em;
+    padding-top: 50px;
+
+}
+
+
+#rodape-home{
+    font-family: “Duru Sans”, Verdana, sans-serif;
+    text-align: center;
+    color: #660000;
+    font-weight: bold;
+    background-color: #036fab;
+    height: 100px;
+    font-size: 2em;
+    margin-top: 20px;
+}
+
+
+#box-container{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-family: “Duru Sans”, Verdana, sans-serif;
+    font-size: 1.2em;
+}
+
+
+.box{
+    margin-top: 40px;
+    margin-left: 12px;
+    width: 200px; 
+
+    text-align: center;
+    background-color:#FFF;
+    border-radius: 10px;
+
+
+}
+
+
+
+.box-frate{
+    margin-top: 30px;
+    margin-left: 12px;
+    margin-bottom: 40px;
+    width: 150px;
+    text-align: center;  
+    border-radius: 10px;
+
+}
+
+
+
+
+.box-home{
+    margin-top: 10px;
+    margin-left: 12px;
+    width: 150px;
+    text-align: center;
+    border-radius: 10px;
+
+}
+
+
+.label-menu{
+    color: #0066FF;
+}

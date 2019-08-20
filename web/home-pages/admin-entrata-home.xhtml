@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>SIG - Sistema Integrato di Gestione - CURIA</title>
+        <h:outputStylesheet name="home.css" library="css"/>
+    </h:head>
+    <h:body>
+        <div id="container">
+            <div id="header">
+                Mirangolo - Sistema de gestão de vendas
+            </div>
+            <hr/>
+
+            <div id="box-container">
+
+                <div class="box-frate">
+
+
+                    <h:link outcome="/admin/home-admin-add">
+                        <h:graphicImage library="imagens" name="document-add.png" height="150" width="150"/>
+                    </h:link>
+                    <h:link outcome="/admin/home-admin-add" value="Novos Registos" style="display: block; text-decoration: none;" />      
+                </div>
+
+
+                <div class="box-frate">
+
+                    <h:link outcome="/admin/home-admin-edit">
+                        <h:graphicImage library="imagens" name="document-edit.png" height="150" width="150"/>
+                    </h:link>
+                    <h:link outcome="/admin/home-admin-edit" value="Alterações" style="display: block; text-decoration: none;" />        
+                </div>
+
+
+                <div class="box-frate">
+
+                    <h:link outcome="/admin/home-admin-auditoria">
+                        <h:graphicImage library="imagens" name="gestao.png" height="150" width="150"/>
+                    </h:link>
+                    <h:link outcome="/admin/home-admin-auditoria" value="Gestão" style="display: block; text-decoration: none;" />        
+                </div>
+
+
+
+
+
+            </div>
+            <hr/>
+
+
+
+
+
+
+
+
+            <div class="titolo-pagina"> 
+                <hr/>
+            </div>
+
+
+
+            <div id="box-container">
+                <div class="box-home">
+
+
+
+                    <h:link outcome="/index">
+                        <h:graphicImage library="imagens" name="yellow-house.png" height="80" width="80"/>
+                    </h:link>
+                    <h:link outcome="/index" value="Home" style="display: block; text-decoration: none;" />   
+
+                </div>   
+
+
+            </div>
+            <div id="rodape-home">
+
+        </div>
+
+        </div>
+        
+    </h:body>
+</html>
+

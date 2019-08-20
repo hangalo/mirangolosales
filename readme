@@ -1,0 +1,30 @@
+
+
+Catálgo de produtos
+
+O sistema permite a ordenação dos artigos por nome, preço e quantidade em stock
+
+
+
+Gestão de ventas
+
+<> Nova venda
+
+1)Para adicionar um produto basta escrever as primeiras letras do nome do produto
+2)As quantidades podem ser alternadas manualmenete
+3)O sistema actualiza os stock em função das quandidades definidas
+
+<> Diário
+
+Lista as vendas realizadas num intervalo de tempo
+
+
+
+<> Vendas por Cliente
+
+Permite visualizar as vendas feitas a um cliente especifico
+
+
+
+
+
