@@ -1,0 +1,353 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>SIG - Sistema Integrato di Gestione - CURIA</title>
+        <h:outputStylesheet name="home.css" library="css"/>
+    </h:head>
+    <h:body style="padding-top: 10px ">
+        <b:navBar brand="MirangoloSales" brandHref="index_1.jsf" inverse="true" fixed="top">
+            <h:form styleClass="navbar-form navbar-right">
+                <div class="form-group">
+                    <b:inputText placeholder="Email" fieldSize="sm"/>
+                    <!--input type="text" class="form-control" placeholder="Search"/-->
+                </div>
+                <div class="form-group">
+                    <b:inputText placeholder="Password" fieldSize="sm"/>
+                </div> 
+                #{' '}
+                <b:commandButton size="sm" action="a" value="Sign in" look="success" icon="chevron-right" iconAlign="right"/>
+            </h:form>
+        </b:navBar>
+
+
+
+
+        <b:jumbotron>
+            <b:container>
+                <h1>Mirangolo</h1>
+                <p>Sistema de Gestão de Vendas...
+                </p>
+            </b:container>
+        </b:jumbotron>
+
+        <b:container fluid="true">  
+            <b:row> 
+
+
+                <b:column col-md="10" offset="1" >                                        
+                    <b:row styleClass="placeholders">
+                        <b:column>
+
+                            <b:tabView tabPosition="left" contentStyle="border: 1px solid #ddd;padding:10px">
+                                <b:tab title="CLIENTES">
+
+                                    <h:form id="formCercaFrate"  >
+                                        <h:messages/>
+                                        <p:panel header="Clientes por nome e sobrenome">
+
+                                            <h:panelGrid columns="7" cellspacing="5%">
+                                                <p:inputText style="margin-right: 10px" placeholder="Sobrenome: " id="cognome" value="#{clienteMB.sobrenome}" required="true" requiredMessage="#{msg.obrigatorio}" immediate="true"/>
+                                                <p:inputText style="margin-right: 10px" placeholder="Nome: " id="nome" value="#{clienteMB.nome}" />
+                                                <h:message for="nome"/>
+
+
+                                                <p:commandButton style="margin-right: 10px" value="Pesquisar..." actionListener="#{clienteMB.buscarClientesPorNomeSobrenome}" styleClass="but but-primary" update=":frmClientesNomeSobrenome:dtClientesNomeSobrenome"/>
+                                                <p:commandButton style="width: 130px" value="#{app['button.novo']}" type="button" onclick="PF('dlg3').show();" /> 
+
+                                            </h:panelGrid>
+
+                                        </p:panel>
+                                    </h:form>
+
+                                    <h:form id="frmClientesNomeSobrenome">
+                                        <p:dataTable id="dtClientesNomeSobrenome" value="#{clienteMB.clientesPorNomeSobrenome}" var="item">
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg['numero.registo']}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.idCliente}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg['nome']}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.nomeCliente}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg['sobrenome']}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.sobrenomeCliente}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg['casa']}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.casaCliente}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg['rua']}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.ruaCliente}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg['bairro']}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.bairroCliente}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg['distrito:']}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.distritoCliente}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg['telefone']}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.telefonePrincipal}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg['telemovel']}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.telemovelPrincipal}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg['email']}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.emailPrincipal}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg['data.cadastro']}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.dataCadastro}">
+                                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg['municipio']}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.idMunicipio.nomeMuncipio}"/>
+                                            </p:column>
+                                        </p:dataTable>
+
+                                    </h:form>
+
+
+
+                                    <!-- <h:graphicImage width="100%" name="clientes.png" library="imagens"/>
+                                    -->
+                                </b:tab>
+                                <b:tab id="nv_cliente" title="PESQUISAR">
+                                    <b:accordion expanded-panels="panel1,panel3">
+                                        <b:panel id="panel1" title="Nome e Sobrenome">Content 1</b:panel>
+                                        <b:panel id="panel2" title="Número de Contribuinte">Content 2</b:panel>
+                                    </b:accordion>
+                                </b:tab>
+                                
+
+                            </b:tabView>
+
+                        </b:column>         
+
+                    </b:row>
+                </b:column>
+            </b:row>
+
+        </b:container>
+
+        <h:form>
+
+            <p:dialog header="#{msg['cliente.novo']}" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="500">
+
+
+
+                <h:form>
+                    <p:growl id="msg"/>
+                    <h:panelGrid columns="1">
+                        <p:outputLabel value="#{msg['numero.contribuinte']}" for="numeroContribuinte" />
+                        <p:inputText id="numeroContribuinte" value="#{clienteMB.cliente.numeroContribuinte}" title="Número de contribuinte" size="40" />
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <h:panelGrid columns="1">
+                            <p:outputLabel value="#{msg['nome']}" for="nomeCliente" />
+                            <p:inputText id="nomeCliente" value="#{clienteMB.cliente.nomeCliente}" title="NomeCliente" size="40" />
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="1">
+                            <p:outputLabel value="#{msg['sobrenome']}" for="sobrenomeCliente" />
+                            <p:inputText id="sobrenomeCliente" value="#{clienteMB.cliente.sobrenomeCliente}" title="SobrenomeCliente" size="40"/>
+                        </h:panelGrid>
+                    </h:panelGrid> 
+
+
+                    <h:panelGrid columns="1">
+                        <p:outputLabel value="#{msg['casa']}" for="casaCliente" />
+                        <p:inputText id="casaCliente" value="#{clienteMB.cliente.casaCliente}" title="CasaCliente" size="10" />
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3">
+                        <h:panelGrid columns="1">
+
+                            <p:outputLabel value="#{msg['rua']}" for="ruaCliente" />
+                            <p:inputText id="ruaCliente" value="#{clienteMB.cliente.ruaCliente}" title="RuaCliente" />
+                        </h:panelGrid>
+
+                        <h:panelGrid columns="1">
+                            <p:outputLabel value="#{msg['bairro']}" for="bairroCliente" />
+                            <p:inputText id="bairroCliente" value="#{clienteMB.cliente.bairroCliente}" title="BairroCliente" size="30" />
+                        </h:panelGrid>
+                        <h:panelGrid columns="1">
+                            <p:outputLabel value="#{msg['distrito:']}" for="distritoCliente" />
+                            <p:inputText id="distritoCliente" value="#{clienteMB.cliente.distritoCliente}" title="DistritoCliente" />
+                        </h:panelGrid>   
+                    </h:panelGrid>   
+
+
+                    <h:panelGrid columns="3">
+                        <h:panelGrid columns="1">
+                            <p:outputLabel value="#{msg['telefone']}" for="telefonePrincipal" />
+                            <p:inputText id="telefonePrincipal" value="#{clienteMB.cliente.telefonePrincipal}" title="TelefonePrincipal" />
+                        </h:panelGrid>   
+
+                        <h:panelGrid columns="1">
+                            <p:outputLabel value="#{msg['telemovel']}" for="telemovelPrincipal" />
+                            <p:inputText id="telemovelPrincipal" value="#{clienteMB.cliente.telemovelPrincipal}" title="TelemovelPrincipal" size="30" />
+                        </h:panelGrid>  
+
+                        <h:panelGrid columns="1">
+                            <p:outputLabel value="#{msg['email']}" for="emailPrincipal" />
+                            <p:inputText id="emailPrincipal" value="#{clienteMB.cliente.emailPrincipal}" title="EmailPrincipal" />
+                        </h:panelGrid>  
+                    </h:panelGrid>
+
+
+                    <h:panelGrid columns="2">
+
+
+                        <h:panelGrid columns="1">
+                            <p:outputLabel value="#{msg['municipio']}" for="municipio" />
+                            <p:selectOneMenu id="municipio" value="#{clienteMB.cliente.idMunicipio}" filter="true" filterMatchMode="startsWith" converter="municipioConverter" required="true" requiredMessage="The Municipio field is required." style="width: 200px;">
+                                <f:selectItem itemLabel="== Seleziona ==" itemValue="#{null}" noSelectionOption="true"/>
+                                <f:selectItems value="#{localidadeMB.carregaMunicipios}"/>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+
+                    </h:panelGrid>
+
+
+                    <h:panelGrid columns="1">
+                        <p:outputLabel value="#{msg['data.cadastro']}" for="dataCadastro" />
+                        <p:calendar id="dataCadastro" value="#{clienteMB.cliente.dataCadastro}" title="DataCadastro" />
+
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+
+                        <p:commandButton value="#{app['button.guardar']}" actionListener="#{clienteMB.save}" ajax="false" resetValues="true" update="msg">
+
+                        </p:commandButton>
+                        <p:commandButton value="#{app['button.fechar']}" actionListener="#">
+
+                        </p:commandButton>
+
+
+                    </h:panelGrid>
+
+                </h:form>
+
+
+            </p:dialog>
+
+        </h:form>
+
+        <footer style="background-color: #ffffff; margin-top: 1%">
+            <b:progressBar value="100" animated="true" renderCaption="false"/>
+
+            <p style="text-align: center">
+                MirangoloSales - Sistema de Gestão de Vendas
+                <br/>
+                <a href="www.fenixinnovation.com"><b style="color: black">FênixInnovation</b></a> - 2019 Comprometidos com a Inovação</p> 
+            <br></br>
+        </footer>
+
+        <style type="text/css">
+            .sub-header {
+                border-bottom: 1px solid #eee;
+                padding-bottom: 10px;
+            }
+            .navbar-fixed-top {
+                border: 0 none;
+                color: white;
+            }
+            .sidebar {
+                display: none;
+            }
+            @media (min-width: 768px) {
+                .sidebar {
+                    background-color: #f5f5f5;
+                    border-right: 1px solid #eee;
+                    bottom: 0;
+                    display: block;
+                    left: 0;
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    padding: 20px;
+                    position: fixed;
+                    top: 51px;
+                    z-index: 1000;
+                }
+            }
+            .nav-list {
+                margin-bottom: 20px;
+                margin-left: -20px;
+                margin-right: -21px;
+            }
+            .nav-list > li > a {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            .nav-list > .active > a, .nav-sidebar > .active > a:hover, .nav-sidebar > .active > a:focus {
+                background-color: #428bca;
+                color: #fff;
+            }
+            .main {
+                padding: 20px;
+            }
+            @media (min-width: 768px) {
+                .main {
+                    padding-left: 40px;
+                    padding-right: 40px;
+                }
+            }
+            .main .page-header {
+                margin-top: 0;
+            }
+            .placeholders {
+                margin-bottom: 30px;
+                text-align: center;
+            }
+            .placeholders h4 {
+                margin-bottom: 0;
+            }
+            .placeholder {
+                margin-bottom: 20px;
+            }
+            .placeholder img {
+                border-radius: 50%;
+                display: inline-block;
+            }
+        </style>
+    </h:body>
+</html>
