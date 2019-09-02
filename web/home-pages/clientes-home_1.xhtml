@@ -40,16 +40,16 @@
             <b:row> 
 
 
-                <b:column col-md="10" offset="1" >                                        
+                <b:column col-md="11" offset="1" >                                        
                     <b:row styleClass="placeholders">
-                        <b:column>
+                        <b:column span="30">
 
                             <b:tabView tabPosition="left" contentStyle="border: 1px solid #ddd;padding:10px">
                                 <b:tab title="CLIENTES">
 
                                     <h:form id="formCercaFrate"  >
                                         <h:messages/>
-                                        <p:panel header="Clientes por nome e sobrenome">
+                                        <p:panel style="text-align: left" header="Clientes por nome e sobrenome">
 
                                             <h:panelGrid columns="7" cellspacing="5%">
                                                 <p:inputText style="margin-right: 10px" placeholder="Sobrenome: " id="cognome" value="#{clienteMB.sobrenome}" required="true" requiredMessage="#{msg.obrigatorio}" immediate="true"/>
@@ -67,13 +67,13 @@
 
                                     <h:form id="frmClientesNomeSobrenome">
                                         <p:dataTable id="dtClientesNomeSobrenome" value="#{clienteMB.clientesPorNomeSobrenome}" var="item">
-                                            <p:column>
+                                            <p:column width="20%">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg['numero.registo']}"/>
                                                 </f:facet>
                                                 <h:outputText value="#{item.idCliente}"/>
                                             </p:column>
-                                            <p:column>
+                                            <p:column width="30%">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg['nome']}"/>
                                                 </f:facet>
@@ -85,49 +85,49 @@
                                                 </f:facet>
                                                 <h:outputText value="#{item.sobrenomeCliente}"/>
                                             </p:column>
-                                            <p:column>
+                                            <p:column width="30%">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg['casa']}"/>
                                                 </f:facet>
                                                 <h:outputText value="#{item.casaCliente}"/>
                                             </p:column>
-                                            <p:column>
+                                            <p:column width="30%">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg['rua']}"/>
                                                 </f:facet>
                                                 <h:outputText value="#{item.ruaCliente}"/>
                                             </p:column>
-                                            <p:column>
+                                            <p:column width="30%">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg['bairro']}"/>
                                                 </f:facet>
                                                 <h:outputText value="#{item.bairroCliente}"/>
                                             </p:column>
-                                            <p:column>
+                                            <p:column width="30%">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg['distrito:']}"/>
                                                 </f:facet>
                                                 <h:outputText value="#{item.distritoCliente}"/>
                                             </p:column>
-                                            <p:column>
+                                            <p:column width="30%">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg['telefone']}"/>
                                                 </f:facet>
                                                 <h:outputText value="#{item.telefonePrincipal}"/>
                                             </p:column>
-                                            <p:column>
+                                            <p:column width="30%">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg['telemovel']}"/>
                                                 </f:facet>
                                                 <h:outputText value="#{item.telemovelPrincipal}"/>
                                             </p:column>
-                                            <p:column>
+                                            <p:column width="30%">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg['email']}"/>
                                                 </f:facet>
                                                 <h:outputText value="#{item.emailPrincipal}"/>
                                             </p:column>
-                                            <p:column>
+                                            <p:column width="30%">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg['data.cadastro']}"/>
                                                 </f:facet>
@@ -135,15 +135,30 @@
                                                     <f:convertDateTime pattern="MM/dd/yyyy" />
                                                 </h:outputText>
                                             </p:column>
-                                            <p:column>
+                                            <p:column width="30%">
                                                 <f:facet name="header">
                                                     <h:outputText value="#{msg['municipio']}"/>
                                                 </f:facet>
-                                                <h:outputText value="#{item.idMunicipio.nomeMuncipio}"/>
+                                                <h:outputText value="#{item.idMunicipio.nomeMunicipio}"/>
                                             </p:column>
+                                            
+                                           
+
+
                                         </p:dataTable>
 
+                                        <h:form id="frmVer">
+                                            <p:dialog id="ver" widgetVar="dlgVer" showEffect="explode" hideEffect="bounce" height="400">
+
+                                            </p:dialog>
+                                        </h:form>
+
+
+
                                     </h:form>
+
+
+
 
 
 
@@ -156,7 +171,7 @@
                                         <b:panel id="panel2" title="Número de Contribuinte">Content 2</b:panel>
                                     </b:accordion>
                                 </b:tab>
-                                
+
 
                             </b:tabView>
 
@@ -168,7 +183,7 @@
 
         </b:container>
 
-        <h:form>
+        <h:form id="frmNovo">
 
             <p:dialog header="#{msg['cliente.novo']}" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="500">
 
@@ -270,7 +285,11 @@
 
             </p:dialog>
 
+
+
         </h:form>
+
+
 
         <footer style="background-color: #ffffff; margin-top: 1%">
             <b:progressBar value="100" animated="true" renderCaption="false"/>
