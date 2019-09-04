@@ -27,36 +27,20 @@
                 <b:commandButton size="sm" action="a" value="Entrar" look="success" icon="chevron-right" iconAlign="right"/>
             </h:form>
         </b:navBar>
-        
-        <b:jumbotron>
-            <b:container>
-                <h1>Mirangolo</h1>
-                <p>Sistema de Gestão de Vendas...
-                </p>
-            </b:container>
-        </b:jumbotron>
-
-        <!--<h:graphicImage name="clientes.png" library="imagens" width="100%"/>-->
-
 
         <b:container fluid="true">  
 
             <b:column col-sm="9" col-md="12" >
                 <b:row>
-                    
-                    <b:column col-sm="9" col-md="12" styleClass="main">
 
-                        <h:form id="formCercaFrate" styleClass="navbar-form navbar-right">
-                            <div class="form-group">
-                                <b:inputText size="30" placeholder="Sobrenome " id="cognome" value="#{clienteMB.sobrenome}" required="true" requiredMessage="#{msg.obrigatorio}" immediate="true"/>
-                            </div>
-                            <div class="form-group">
-                                <b:inputText size="30" placeholder="Nome " id="nome" value="#{clienteMB.nome}" />
-                                <b:message for="nome"/>
-                            </div> 
+                    <b:column col-sm="9" col-md="12" styleClass="main">
+                        <br/>
+                        <br/>
+                        <h:form id="formCercaFrate" styleClass="navbar-form navbar-right">                            
                             <b:commandButton icon="search" actionListener="#{clienteMB.buscarClientesPorNomeSobrenome}" styleClass="but but-primary" update=":frmClientesNomeSobrenome:dtClientesNomeSobrenome"/>
                             <b:commandButton style="margin-left: 10px" icon="plus" type="button" onclick="PF('dlg3').show();" /> 
                         </h:form>
+                        
                     </b:column>
                 </b:row>
             </b:column>
