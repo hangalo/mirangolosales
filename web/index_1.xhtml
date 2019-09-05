@@ -2,37 +2,16 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>SIG - Sistema Integrato di Gestione - CURIA</title>
         <h:outputStylesheet name="home.css" library="css"/>
     </h:head>
     <h:body style="padding-top: 10px ">
-        <b:navBar brand="MirangoloSales" brandHref="index_1.jsf" inverse="true" fixed="top">
-            <h:form styleClass="navbar-form navbar-right">
-                <div class="form-group">
-                    <b:inputText placeholder="Email" fieldSize="sm"/>
-                    <!--input type="text" class="form-control" placeholder="Search"/-->
-                </div>
-                <div class="form-group">
-                    <b:inputText placeholder="Password" fieldSize="sm"/>
-                </div> 
-                #{' '}
-                <b:commandButton size="sm" action="a" value="Sign in" look="success" icon="chevron-right" iconAlign="right"/>
-            </h:form>
-        </b:navBar>
-
-
-
-
-        <b:jumbotron>
-            <b:container>
-                <h1>Mirangolo</h1>
-                <p>Sistema de Gestão de Vendas...
-                </p>
-            </b:container>
-        </b:jumbotron>
-
+        <!-- Reutilização da pagina menu_base -->
+        <ui:include src="WEB-INF/menus/menu_base.xhtml" />
+        
         <b:container fluid="true">  
             <b:row> 
 
