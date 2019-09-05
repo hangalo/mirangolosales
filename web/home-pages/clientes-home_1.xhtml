@@ -45,7 +45,6 @@
                 <b:row>
                     
                     <b:column col-sm="9" col-md="12" styleClass="main">
-
                         <h:form id="formCercaFrate" styleClass="navbar-form navbar-right">
                             <div class="form-group">
                                 <b:inputText size="30" placeholder="Sobrenome " id="cognome" value="#{clienteMB.sobrenome}" required="true" requiredMessage="#{msg.obrigatorio}" immediate="true"/>
@@ -180,7 +179,7 @@
                     <h:panelGrid columns="2">
                         <h:panelGrid columns="1">
                             <p:outputLabel value="#{msg['nome']}" for="nomeCliente" />
-                            <p:inputText id="nomeCliente" value="#{clienteMB.cliente.nomeCliente}" title="NomeCliente" size="40" />
+                            <p:inputText style="margin-right: 10px" id="nomeCliente" value="#{clienteMB.cliente.nomeCliente}" title="NomeCliente" size="40" />
                         </h:panelGrid>
 
                         <h:panelGrid columns="1">
@@ -199,12 +198,12 @@
                         <h:panelGrid columns="1">
 
                             <p:outputLabel value="#{msg['rua']}" for="ruaCliente" />
-                            <p:inputText id="ruaCliente" value="#{clienteMB.cliente.ruaCliente}" title="RuaCliente" />
+                            <p:inputText style="margin-right: 10px" id="ruaCliente" value="#{clienteMB.cliente.ruaCliente}" title="RuaCliente" />
                         </h:panelGrid>
 
                         <h:panelGrid columns="1">
                             <p:outputLabel value="#{msg['bairro']}" for="bairroCliente" />
-                            <p:inputText id="bairroCliente" value="#{clienteMB.cliente.bairroCliente}" title="BairroCliente" size="30" />
+                            <p:inputText style="margin-right: 10px" id="bairroCliente" value="#{clienteMB.cliente.bairroCliente}" title="BairroCliente" size="30" />
                         </h:panelGrid>
                         <h:panelGrid columns="1">
                             <p:outputLabel value="#{msg['distrito:']}" for="distritoCliente" />
@@ -216,12 +215,12 @@
                     <h:panelGrid columns="3">
                         <h:panelGrid columns="1">
                             <p:outputLabel value="#{msg['telefone']}" for="telefonePrincipal" />
-                            <p:inputText id="telefonePrincipal" value="#{clienteMB.cliente.telefonePrincipal}" title="TelefonePrincipal" />
+                            <p:inputText style="margin-right: 10px" id="telefonePrincipal" value="#{clienteMB.cliente.telefonePrincipal}" title="TelefonePrincipal" />
                         </h:panelGrid>   
 
                         <h:panelGrid columns="1">
                             <p:outputLabel value="#{msg['telemovel']}" for="telemovelPrincipal" />
-                            <p:inputText id="telemovelPrincipal" value="#{clienteMB.cliente.telemovelPrincipal}" title="TelemovelPrincipal" size="30" />
+                            <p:inputText style="margin-right: 10px" id="telemovelPrincipal" value="#{clienteMB.cliente.telemovelPrincipal}" title="TelemovelPrincipal" size="30" />
                         </h:panelGrid>  
 
                         <h:panelGrid columns="1">

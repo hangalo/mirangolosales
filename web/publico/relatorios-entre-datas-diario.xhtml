@@ -19,7 +19,6 @@
                       <h:form id="formDadosDiario">
                         <h:messages/>
                         <p:panel header="Diário de vendas">
-
                             <h:panelGrid columns="6" cellspacing="5%">
                                 <h:outputLabel value="Início"/>
                                 <p:calendar value="#{vendaMB.inicio}" pattern="dd/MM/yyyy" id="inicio"/>
@@ -40,7 +39,7 @@
                         <p:dataTable id="dtDiario" value="#{vendaMB.diarioVendas}" var="item">
                             
                             <p:column headerText="#{msg['venda.numero']}" sortBy="#{item.idVenda}">
-                                    <h:outputText value="#{item.idVenda}">
+                                <h:outputText value="#{item.idVenda}">
                                    
                                 </h:outputText>
                             </p:column>
@@ -54,8 +53,8 @@
                             
                             <p:column headerText="#{msg['total']}" sortBy="#{item.valorTotal}">
                                     <h:outputText value="#{item.valorTotal}">
-                                    <f:convertNumber currencySymbol = "AO" maxFractionDigits="2" type = "currency" locale="ao_AO" />
-                                </h:outputText>
+                                        <f:convertNumber currencySymbol = "AO" maxFractionDigits="2" type = "currency" locale="ao_AO" />
+                                    </h:outputText>
                             </p:column>
                             
                             
