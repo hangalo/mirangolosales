@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <h:body style="padding-top: 10px ">
+
+        <ui:composition template="./../WEB-INF/templates/opac-vendas-template_1.xhtml">
+
+            <ui:define name="content">
+                <b:column col-sm="9" col-md="12" styleClass="main">
+                    <f:view>
+                        <b:panel look="primary">
+
+                            <f:facet name="heading">
+                                <h:outputText style="text-align: center; color: white" value="DIÁRIO DE VENDAS" />
+                            </f:facet>
+
+                            <h:form id="formDadosDiario" styleClass="navbar-form navbar-right">
+                                <h:messages/>
+
+                                <h:panelGrid columns="3" cellspacing="5%">
+                                    <b:dateTimePicker show-icon="false" showTime="false" placeholder="Início" value="#{vendaMB.inicio}" id="inicio"/>
+                                    <b:dateTimePicker show-icon="false" style="margin-left: 6px" showTime="false" placeholder="Fim" value="#{vendaMB.fim}" id="fim"/>
+                                    <b:commandButton style="margin-left: 6px" icon="search" styleClass="but but-primary" actionListener="#{vendaMB.executarBuscarVendasEntreDatas}">
+                                        <f:ajax execute="formDadosDiario:inicio formDadosDiario:fim" render=":formDiario:dtDiario"/>
+                                    </b:commandButton>
+                                    <br/>
+                                </h:panelGrid>
+
+                            </h:form>
+                            
+                            
+                            <h:form id="formDiario">
+                                
+                                <p:dataTable id="dtDiario" value="#{vendaMB.diarioVendas}" var="item">
+
+                                    <p:column headerText="#{msg['venda.numero']}" sortBy="#{item.idVenda}">
+                                        <h:outputText value="#{item.idVenda}">
+
+                                        </h:outputText>
+                                    </p:column>
+
+
+                                    <p:column headerText="#{msg['data']}" sortBy="#{item.dataVenda}">
+                                        <h:outputText value="#{item.dataVenda}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column headerText="#{msg['total']}" sortBy="#{item.valorTotal}">
+                                        <h:outputText value="#{item.valorTotal}">
+                                            <f:convertNumber currencySymbol = "AO" maxFractionDigits="2" type = "currency" locale="ao_AO" />
+                                        </h:outputText>
+                                    </p:column>
+
+
+                                </p:dataTable>
+                            </h:form>
+
+                        </b:panel>
+
+                    </f:view>
+                </b:column>                
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>

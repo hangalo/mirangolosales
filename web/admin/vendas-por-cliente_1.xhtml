@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <h:body style="padding-top: 10px ">
+
+        <ui:composition template="./../WEB-INF/templates/opac-vendas-template_1.xhtml">
+
+            <ui:define name="content">
+                <b:column col-sm="9" col-md="12" styleClass="main">
+                    <b:panel look="primary">
+                        <f:facet name="heading">
+                            <h:outputText style="text-align: center; color: white" value="FACTURAS DO CLIENTE"/>
+                        </f:facet>
+
+                        <f:view>
+                            <h:form id="formCarregaCliente"  styleClass="navbar-form navbar-right">
+                                <h:messages/>
+                                    <b:panelGrid columns="6">
+                                        <p:selectOneMenu id="cliente" value="#{vendaMB.cliente}" valueChangeListener="#{vendaMB.loadCliente}" onchange="submit()" immediate="true" converter="clienteConverter" required="true" requiredMessage="Campo obligatoriio." filter="true" filterMatchMode="startsWith">
+                                            <f:selectItem itemLabel="** Selecione o Cliente **" itemValue="#{null}" noSelectionOption="true"/>
+                                            <f:selectItems value="#{clienteMB.carregarClientes}"/>
+                                        </p:selectOneMenu>
+
+                                    </b:panelGrid>
+
+                            </h:form>
+
+
+                            <h:form>
+                                <p:dataTable value="#{vendaMB.vendasAoCliente}" var="item">
+
+                                    <p:column headerText="#{msg['venda.numero']}" sortBy="#{item.idVenda}">
+                                        <h:outputText value="#{item.idVenda}">
+
+                                        </h:outputText>
+                                    </p:column>
+
+
+                                    <p:column headerText="#{msg['data']}" sortBy="#{item.dataVenda}">
+                                        <h:outputText value="#{item.dataVenda}">
+                                            <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column headerText="#{msg['total']}" sortBy="#{item.valorTotal}">
+                                        <h:outputText value="#{item.valorTotal}">
+                                            <f:convertNumber currencySymbol = "AO" maxFractionDigits="2" type = "currency" locale="ao_AO" />
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column headerText="Operacao">
+
+                                        <h:commandLink value="Imprimir" action="#{gestorRelatoriosMB.imprimirFactura(item.idVenda)}"/>
+
+
+                                    </p:column>
+                                </p:dataTable>
+                            </h:form>
+                        </f:view>
+                    </b:panel>
+                </b:column>
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>

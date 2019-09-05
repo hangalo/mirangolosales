@@ -11,142 +11,172 @@
         <h:outputStylesheet name="home.css" library="css"/>
     </h:head>
     <h:body style="padding-top: 10px ">
-        <b:navBar brand="" brandHref="index_1.jsf" inverse="true" fixed="top">
-            <h:link outcome="/index_1">
-                <h:graphicImage style="margin-top: 1%" library="imagens" name="house.png" height="25" width="25"/>
-            </h:link>
-            <h:form styleClass="navbar-form navbar-right">
-                <div class="form-group">
-                    <b:inputText placeholder="Email" fieldSize="sm"/>
-                    <!--input type="text" class="form-control" placeholder="Search"/-->
-                </div>
-                <div class="form-group">
-                    <b:inputText placeholder="Senha" fieldSize="sm"/>
-                </div> 
-                #{' '}
-                <b:commandButton size="sm" action="a" value="Entrar" look="success" icon="chevron-right" iconAlign="right"/>
-            </h:form>
-        </b:navBar>
+        <ui:include src="../WEB-INF/menus/menu_base.xhtml" />
 
         <b:container fluid="true">  
-
             <b:column col-sm="9" col-md="12" >
                 <b:row>
-
                     <b:column col-sm="9" col-md="12" styleClass="main">
-                        <br/>
-                        <br/>
-                        <h:form id="formCercaFrate" styleClass="navbar-form navbar-right">                            
-                            <b:commandButton icon="search" actionListener="#{clienteMB.buscarClientesPorNomeSobrenome}" styleClass="but but-primary" update=":frmClientesNomeSobrenome:dtClientesNomeSobrenome"/>
-                            <b:commandButton style="margin-left: 10px" icon="plus" type="button" onclick="PF('dlg3').show();" /> 
+                        <h:form id="formCercaFrate" styleClass="navbar-form navbar-right">
+                            <p:tabMenu activeIndex="#{param.i}">
+                                <p:menuitem value="Nova Venda" outcome="vendas-home_1" style="color: #0066CC;">
+                                    <f:param name="i" value="0" />
+                                </p:menuitem>
+
+                                <p:menuitem value="Diario" outcome="/admin/vendas-entre-datas-diario_1" style="color: #0066CC;">
+                                    <f:param name="i" value="1" />
+                                </p:menuitem>
+
+                                <p:menuitem value="Vendas por cliente" outcome="/admin/vendas-por-cliente" style="color: #0066CC;">
+                                    <f:param name="i" value="2" />
+                                </p:menuitem>
+
+                                <p:menuitem value="Catálogo de artigos" outcome="/admin/vendas-catalogo-artigos" style="color: #0066CC;">
+                                    <f:param name="i" value="3" />
+                                </p:menuitem>
+                            </p:tabMenu>
                         </h:form>
-                        
                     </b:column>
                 </b:row>
             </b:column>
 
+
             <b:column style="margin-top: -1.5%" col-sm="9" col-md="12" styleClass="main">
                 <f:view>
-                    <b:panel look="primary">
-                        <f:facet name="heading">
-                            <h:outputText style="text-align: center; color: white" value="CLIENTES " />
-                        </f:facet>
+                    <b:form id="formFactura">
+                        <b:growl id="msgs" showDetail="true"/>
 
-                        <b:form id="frmClientesNomeSobrenome">
+                        <h:panelGrid columns="2" style="width: 100%">
+                            <b:panelGrid columns="1" style="margin-left: 12px;">
+                                <b:panel look="primary">
+                                    <f:facet name="heading">
+                                        <h:outputText style="text-align: center; color: white" value="FACTURA Nº #{carrinhoBean.facturaActual}"/>
+                                    </f:facet>
 
-                            <b:dataTable searching="true" id="dtClientesNomeSobrenome" value="#{clienteMB.clientesPorNomeSobrenome}" var="item">
-                                <b:column style="text-align: center">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['numero.registo']}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.idCliente}"/>
-                                </b:column>
-                                <b:column style="text-align: center">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['nome']}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.nomeCliente}"/>
-                                </b:column>
-                                <b:column style="text-align: center">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['sobrenome']}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.sobrenomeCliente}"/>
-                                </b:column>
-                                <b:column style="text-align: center">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['casa']}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.casaCliente}"/>
-                                </b:column>
-                                <b:column style="text-align: center">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['rua']}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.ruaCliente}"/>
-                                </b:column>
-                                <b:column style="text-align: center">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['bairro']}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.bairroCliente}"/>
-                                </b:column>
-                                <b:column style="text-align: center">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['distrito:']}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.distritoCliente}"/>
-                                </b:column>
-                                <b:column style="text-align: center">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['telefone']}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.telefonePrincipal}"/>
-                                </b:column>
-                                <b:column style="text-align: center">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['telemovel']}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.telemovelPrincipal}"/>
-                                </b:column>
-                                <b:column style="text-align: center">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['email']}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.emailPrincipal}"/>
-                                </b:column>
-                                <b:column style="text-align: center">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['data.cadastro']}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.dataCadastro}">
-                                        <f:convertDateTime pattern="dd/MM/yyyy" />
-                                    </h:outputText>
-                                </b:column>
-                                <b:column style="text-align: center">
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['municipio']}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.idMunicipio.nomeMunicipio}"/>
-                                </b:column>
+                                    <b:panelGrid columns="3" style="text-align: center ">
+                                        <b:panelGrid columns="1" style="text-align: center ">
+                                            <b:selectOneMenu select2="true" value="#{vendaMB.venda.idCliente}" id="cliente"  required="true" converter="clienteConverter">
+                                                <f:selectItem itemLabel="** Seleccionar Cliente **" value="#{null}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{clienteMB.carregarClientes}"/>
+                                            </b:selectOneMenu>
+                                        </b:panelGrid>
+
+
+                                        <b:panelGrid columns="1">   
+                                            <b:selectOneMenu select2="true" id="formapagamento" value="#{vendaMB.venda.idFormaPagamento}" required="true"  converter="formaPagamentoConverter">
+                                                <f:selectItem itemLabel="** Forma de Pagamento **" value="#{null}" noSelectionOption="true"/>
+                                                <f:selectItems value="#{formaPagamentoMB.carregarFormaPagamentos}"/>
+                                            </b:selectOneMenu>
+                                        </b:panelGrid>
+
+
+                                        <b:panelGrid columns="1">
+                                            <b:inputText size="10" value="#{vendaMB.venda.dataVenda}" style="text-align: center">
+                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                            </b:inputText>  
+                                        </b:panelGrid>
+                                    </b:panelGrid>
+
+                                    <b:panelGrid columns="1" id="pcarrinho">
+                                        <p:dataTable value="#{carrinhoBean.carrinho}" var="i" editable="true" editMode="cell" id="dadosFactura">
+                                            <p:ajax event="cellEdit" listener="#{carrinhoBean.onCellEdit}" update=":formFactura:msgs, :formFactura:totalSoma"/>
+                                            <p:column headerText="Nome">
+                                                <h:outputText value="#{i.idArtigo.nomeArtigo}"/>
+                                            </p:column>
+
+                                            <p:column headerText="Preço">
+                                                <h:outputText value="#{i.idArtigo.precoArtigo}"/>
+                                            </p:column>
 
 
 
+                                            <p:column headerText="Quantidade">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"> 
+                                                        <h:outputText value="#{i.quantidadeProduto}"/>
+                                                    </f:facet>
 
-                            </b:dataTable>
+                                                    <f:facet name="input" > 
+                                                        <p:inputText id="modelInput" value="#{i.quantidadeProduto}" style="width: 100%" >
+                                                            <f:ajax event="change" render="subtotal"/>
+                                                        </p:inputText>
+                                                    </f:facet>
 
-                            <b:form id="frmVer">
-                                <p:dialog id="ver" widgetVar="dlgVer" showEffect="explode" hideEffect="bounce" height="400">
+                                                </p:cellEditor>
+                                            </p:column>
 
-                                </p:dialog>
-                            </b:form>
+                                            <p:column>
+                                                <f:facet name="header">Sub - Total</f:facet>
+                                                <h:outputText id="subtotal" value="#{i.idArtigo.precoArtigo * i.quantidadeProduto}"/>
+                                            </p:column> 
+
+
+                                            <p:column headerText="Operação">
+                                                <h:form id="eliminar">
+                                                    <h:commandLink value="Eliminar" action="#{carrinhoBean.delete(i)}" onclick="return confirm('Deseja eliminar o Item do carrinho ?')">
+                                                        <f:ajax execute="eliminar" render=":formFactura"/>
+                                                    </h:commandLink>
+                                                </h:form>
+
+                                            </p:column>
+                                        </p:dataTable>
+                                    </b:panelGrid>
+                                    <br/>
+                                    <h:outputText id="totalSoma" value="#{'Total  pagar: '}#{carrinhoBean.suma()} Kwanzas" style="color: #036fab; font-size: 1.8em;"/>
+
+                                    <h:panelGrid columns="2">
+                                        <b:commandButton value="Registar compra"   actionListener="#{carrinhoBean.registarCompra}" style="font-weight: bold"/>
+                                        <b:form id="limpar">
+                                            <b:commandButton value="Limpar tudo"   action="#{carrinhoBean.limparCarrinho()}" style="font-weight: bold"> 
+                                                <f:ajax execute="limpar" render=":formFactura"/>
+                                            </b:commandButton> 
+                                        </b:form>
+                                    </h:panelGrid>
+
+                                    <hr/>
+
+
+                                    <h:form style="margin-top: 20px" id="adicionarProdutos">
+                                        <b:messages showDetail="true" showSummary="true"/>
+                                        <b:growl id="addMessages"/>
+                                        <b:panelGrid columns="1">
+                                            <h:outputLabel value="Adicionar Produtos" style="font-weight: bold"/>
+                                            <p:autoComplete value="#{artigoMB.artigo}"
+                                                            completeMethod="#{artigoMB.queryArtigos}"
+                                                            var="artigo"
+                                                            itemValue="#{artigo}"
+                                                            itemLabel="#{artigo.nomeArtigo}"   maxResults="10" dropdown="true" forceSelection="true" requiredMessage="Seleccionar um valor" converter="artigoConverter" size="40">
+
+                                                <b:column>
+                                                    <h:outputText value="#{artigo.nomeArtigo} (Stock: #{artigo.existencias} | Preço: #{artigo.precoArtigo})"/>
+                                                </b:column>
+
+                                                <p:ajax event="itemSelect" listener="#{artigoMB.selectListenerNomeArtgioAutoComplete}" update="addMessages :formFactura:dadosFactura :formFactura:totalSoma" />
+
+                                            </p:autoComplete>
+                                        </b:panelGrid>
+                                    </h:form>
+                                </b:panel>
+
+                            </b:panelGrid>
 
 
 
-                        </b:form>
-                    </b:panel>
+                        </h:panelGrid>
+
+                    </b:form>
+
+
+                    <h:form>
+                        <center>
+                            <h:link outcome="/home-pages/vendas-home">
+                                <h:graphicImage library="imagens" name="exit.png" height="30" width="30"/>
+                            </h:link>
+                        </center>
+
+                    </h:form>
                 </f:view>
-            </b:column> 
+            </b:column>
         </b:container>
 
         <h:form id="frmNovo">
