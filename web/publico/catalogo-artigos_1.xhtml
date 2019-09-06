@@ -42,38 +42,21 @@
                 <f:view>
                     <b:panel look="primary">
                         <f:facet name="heading">
-                            <h:outputText style="text-align: center; color: white" value="ARTIGOS " />
+                            <h:outputText style="text-align: center; color: white" value="ARTIGOS CATÁLOGO GERAL" />
                         </f:facet>
 
-                        <h:form  id="adicionarProdutos">
-                            <h:messages showDetail="true" showSummary="true"/>
-                            <b:growl id="addMessages"/>
-                            <b:panelGrid columns="1">
-                                <p:autoComplete style="margin-top: 0px; margin-right: 40px; float: right;" value="#{artigoMB.artigo}" completeMethod="#{artigoMB.queryArtigos}" var="artigo" itemValue="#{artigo}" itemLabel="#{artigo.nomeArtigo}"   maxResults="10" dropdown="true" forceSelection="true" requiredMessage="Seleccionar um valor" converter="artigoConverter" size="40">
-                                    <p:column>
-                                        <h:outputText value="#{artigo.nomeArtigo} (Stock: #{artigo.existencias} | Preço: #{artigo.precoArtigo})"/>
-                                    </p:column>
-                                    <p:ajax event="itemSelect" listener="#{artigoMB.selectListenerArtgiosPorNomeAutoComplete}" update="addMessages :formArtigosPorNome:dtArtigosPorNome" />
-                                </p:autoComplete>
-                            </b:panelGrid>
-                        </h:form>
 
-                        <h:form id="formArtigosPorNome">
 
-                            <b:dataTable  searching="false" id="dtArtigosPorNome" value="#{artigoMB.artigosPorNomes}" var="item" >
+                        <h:form>
+                            <b:commandButton value="Imprimir" actionListener="#{gestorRelatoriosMB.imprimirCatalogoArtigos}" style="font-weight: bold; font-size: 1.5em; margin-bottom: 14px; float: right"/>
+                            <b:dataTable searching="false" value="#{artigoMB.artigos}" var="item">
 
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['artigo.nome.artigo']}"/>
-                                    </f:facet>
+                                <p:column headerText="#{msg['artigo.nome.artigo']}" sortBy="#{item.nomeArtigo}">
                                     <h:outputText value="#{item.nomeArtigo}" />
                                 </p:column>
 
 
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['artigo.preco']}"/>
-                                    </f:facet>
+                                <p:column headerText="#{msg['artigo.preco']}" sortBy="#{item.precoArtigo}">
                                     <h:outputText value="#{item.precoArtigo}">
                                         <f:convertNumber currencySymbol = "AO" type = "currency" locale="ao_AO" />
                                     </h:outputText>
@@ -81,10 +64,7 @@
 
 
 
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['artigo.existencias']}"/>
-                                    </f:facet>
+                                <p:column headerText="#{msg['artigo.existencias']}" sortBy="#{item.existencias}">
                                     <h:outputText value="#{item.existencias}">
                                         <f:convertNumber currencySymbol = "Kg" maxFractionDigits="0" type = "currency" locale="ao_AO" />
                                     </h:outputText>
@@ -123,6 +103,8 @@
 
                             </b:dataTable>
                         </h:form>
+
+
 
 
 

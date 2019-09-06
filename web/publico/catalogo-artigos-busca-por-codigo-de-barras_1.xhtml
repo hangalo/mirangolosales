@@ -49,18 +49,25 @@
                             <h:messages showDetail="true" showSummary="true"/>
                             <b:growl id="addMessages"/>
                             <b:panelGrid columns="1">
-                                <p:autoComplete style="margin-top: 0px; margin-right: 40px; float: right;" value="#{artigoMB.artigo}" completeMethod="#{artigoMB.queryArtigos}" var="artigo" itemValue="#{artigo}" itemLabel="#{artigo.nomeArtigo}"   maxResults="10" dropdown="true" forceSelection="true" requiredMessage="Seleccionar um valor" converter="artigoConverter" size="40">
+                                <p:autoComplete style="float: right" value="#{artigoMB.artigo}"
+                                                completeMethod="#{artigoMB.queryArtigosPorCodigoBarras}"
+                                                var="codigoBarras"
+                                                itemValue="#{codigoBarras}"
+                                                itemLabel="#{codigoBarras.codigoBarraArtigo}"   maxResults="10"  forceSelection="true" requiredMessage="Seleccionar um valor" converter="artigoConverter" size="40">
+
                                     <p:column>
-                                        <h:outputText value="#{artigo.nomeArtigo} (Stock: #{artigo.existencias} | Preço: #{artigo.precoArtigo})"/>
+                                        <h:outputText value="#{codigoBarras.codigoBarraArtigo} (Artigo: #{codigoBarras.nomeArtigo} | Preço: #{codigoBarras.precoArtigo})"/>
                                     </p:column>
-                                    <p:ajax event="itemSelect" listener="#{artigoMB.selectListenerArtgiosPorNomeAutoComplete}" update="addMessages :formArtigosPorNome:dtArtigosPorNome" />
+
+                                    <p:ajax event="itemSelect" listener="#{artigoMB.selectListenerArtgiosPorCodigoBarrasAutoComplete}" update="addMessages :formArtigosPorCodigoBarras:dtArtigosPorCodigoBarras" />
+
                                 </p:autoComplete>
                             </b:panelGrid>
                         </h:form>
 
-                        <h:form id="formArtigosPorNome">
+                        <h:form id="formArtigosPorCodigoBarras">
 
-                            <b:dataTable  searching="false" id="dtArtigosPorNome" value="#{artigoMB.artigosPorNomes}" var="item" >
+                            <b:dataTable  searching="false" id="dtArtigosPorCodigoBarras" value="#{artigoMB.artigosPorNomes}" var="item" >
 
                                 <p:column>
                                     <f:facet name="header">
@@ -123,8 +130,8 @@
 
                             </b:dataTable>
                         </h:form>
-
-
+                        
+                        
 
 
                     </b:panel>
