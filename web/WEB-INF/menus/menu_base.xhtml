@@ -2,32 +2,35 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui">
     <h:head>
         <title>SIG - Sistema Integrado de Getsão de Vendas</title>
         <h:outputStylesheet name="home.css" library="css"/>
     </h:head>
     <h:body style="padding-top: 10px ">
+
+
+
         <b:navBar brand="" brandHref="index_1.jsf" inverse="true" fixed="top">
             <h:link outcome="/index_1">
                 <h:graphicImage style="margin-top: 1%" library="imagens" name="house.png" height="25" width="25"/>
             </h:link>
             <h:form styleClass="navbar-form navbar-right">
                 <div class="form-group">
-                    <b:inputText placeholder="Email" fieldSize="sm"/>
+                    <b:inputText value="#{loginMB.usuario}" placeholder="Email" fieldSize="sm"/>
                     <!--input type="text" class="form-control" placeholder="Search"/-->
                 </div>
                 <div class="form-group">
-                    <b:inputText placeholder="Senha" fieldSize="sm"/>
+                    <b:inputSecret value="#{loginMB.senha}" placeholder="Senha" fieldSize="sm"/>
                 </div> 
                 #{' '}
-                <b:commandButton size="sm" action="a" value="Entrar" look="success" icon="chevron-right" iconAlign="right"/>
+                <b:commandButton actionListener="#{loginMB.logar()}" size="sm" value="Entrar" look="success" icon="chevron-right" iconAlign="right"/>
             </h:form>
+
+
         </b:navBar>
-        
+
+
         <b:jumbotron>
             <b:container>
                 <h1>Mirangolo</h1>
@@ -39,7 +42,7 @@
         <!--<h:graphicImage name="clientes.png" library="imagens" width="100%"/>-->
 
 
-       
+
         <style type="text/css">
             .sub-header {
                 border-bottom: 1px solid #eee;
