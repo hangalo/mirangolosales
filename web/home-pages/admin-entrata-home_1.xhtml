@@ -11,43 +11,46 @@
     <h:body style="padding-top: 10px ">
         <!-- Reutilização da pagina menu_base -->
         <ui:include src="../WEB-INF/menus/menu_base.xhtml" />
-        
+
         <b:container fluid="true">  
-            <b:row> 
+            <b:row style="text-align: center"> 
 
 
-                <b:column col-md="10" offset="1" >                                        
-                    <b:row styleClass="placeholders">
+                <b:column col-md="11" offset="1" >                                        
+                    <b:row  styleClass="placeholders">
                         <br></br>
                         <br></br>
                         <br></br>
-                        <b:column col-xs="6" col-sm="3" styleClass="placeholder">
-                            <img src="resources/imagens/goods.png " class="img-responsive" width="65%" alt="Vendas"/>
-                            <br></br>
-                            <br></br>
-                            <h:link outcome="home-pages/vendas-home_1_1" style="font-size: 17px; color: #333333" value="Vendas" />
-                        </b:column>
+                        <h:link outcome="/admin/home-admin-add_1" style="font-size: 17px; color: #333333">
+                            <b:column col-xs="9" col-sm="3" styleClass="placeholder">
+                                <img src="../resources/imagens/document-add.png" class="img-responsive" width="65%" alt="Novos Registos"/>
+                                <br></br>
+                                <br></br>
+                                <h:link outcome="/admin/home-admin-add_1" style="font-size: 17px; color: #333333" value="Novos Registos" />
+                            </b:column>
+                        </h:link>
 
-                        <b:column col-xs="6" col-sm="3" styleClass="placeholder">
-                            <img src="resources/imagens/full-basket.png " class="img-responsive" width="65%" alt="Artigos"/>
-                            <br></br>
-                            <br></br>
-                            <h:link outcome="home-pages/artigos-home_1" style="font-size: 17px; color: #333333" value="Catálogo de Artigos" />
-                        </b:column>
+                        <h:link outcome="/admin/home-admin-add_1" style="font-size: 17px; color: #333333">
+                            <b:column col-xs="9" col-sm="3" styleClass="placeholder">
+                                <img src="../resources/imagens/document-edit.png" class="img-responsive" width="65%" alt="Alterações"/>
+                                <br></br>
+                                <br></br>
+                                <h:link outcome="/admin/home-admin-add_1" style="font-size: 17px; color: #333333" value="Alterações" />
+                            </b:column>
+                        </h:link>
 
-                        <b:column col-xs="6" col-sm="3" styleClass="placeholder">
-                            <img src="resources/imagens/group.png " class="img-responsive" width="65%" alt="Clientes"/>
-                            <br></br>
-                            <br></br>
-                            <h:link outcome="home-pages/clientes-home_1" style="font-size: 17px; color: #333333" value="Clientes" />
-                        </b:column>
+                        <h:link outcome="/admin/home-admin-add_1" style="font-size: 17px; color: #333333" >
+                            <b:column col-xs="9" col-sm="3" styleClass="placeholder">
+                                <img src="../resources/imagens/gestao.png" class="img-responsive" width="65%" alt="Gestão"/>
+                                <br></br>
+                                <br></br>
+                                <h:link outcome="/admin/home-admin-add_1" style="font-size: 17px; color: #333333" value="Gestão" />
+                            </b:column> 
+                        </h:link>
 
-                        <b:column col-xs="6" col-sm="3" styleClass="placeholder">
-                            <img src="resources/imagens/report.png " class="img-responsive" width="65%" alt="Relatórios"/>
-                            <br></br>
-                            <br></br>
-                            <h:link outcome="home-pages/relatorios-home_1" style="font-size: 17px; color: #333333" value="Relatórios" />
-                        </b:column>                            
+
+
+
 
                     </b:row>
                 </b:column>

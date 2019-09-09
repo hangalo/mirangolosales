@@ -11,7 +11,7 @@
     <h:body style="padding-top: 10px ">
         <!-- Reutilização da pagina menu_base -->
         <ui:include src="WEB-INF/menus/menu_base.xhtml" />
-        
+
         <b:container fluid="true">  
             <b:row> 
 
@@ -21,33 +21,43 @@
                         <br></br>
                         <br></br>
                         <br></br>
-                        <b:column col-xs="6" col-sm="3" styleClass="placeholder">
-                            <img src="resources/imagens/goods.png " class="img-responsive" width="65%" alt="Vendas"/>
-                            <br></br>
-                            <br></br>
-                            <h:link outcome="home-pages/vendas-home_1_1" style="font-size: 17px; color: #333333" value="Vendas" />
-                        </b:column>
+                        <h:link outcome="home-pages/vendas-home_1_1" style="font-size: 17px; color: #333333" >
+                            <b:column col-xs="6" col-sm="3" styleClass="placeholder">
+                                <img src="resources/imagens/goods.png " class="img-responsive" width="65%" alt="Vendas"/>
+                                <br></br>
+                                <br></br>
+                                <h:link outcome="home-pages/vendas-home_1_1" style="font-size: 17px; color: #333333" value="Vendas" />
 
-                        <b:column col-xs="6" col-sm="3" styleClass="placeholder">
-                            <img src="resources/imagens/full-basket.png " class="img-responsive" width="65%" alt="Artigos"/>
-                            <br></br>
-                            <br></br>
-                            <h:link outcome="home-pages/artigos-home_1" style="font-size: 17px; color: #333333" value="Catálogo de Artigos" />
-                        </b:column>
+                            </b:column>
+                        </h:link>
 
-                        <b:column col-xs="6" col-sm="3" styleClass="placeholder">
-                            <img src="resources/imagens/group.png " class="img-responsive" width="65%" alt="Clientes"/>
-                            <br></br>
-                            <br></br>
-                            <h:link outcome="home-pages/clientes-home_1" style="font-size: 17px; color: #333333" value="Clientes" />
-                        </b:column>
 
-                        <b:column col-xs="6" col-sm="3" styleClass="placeholder">
-                            <img src="resources/imagens/report.png " class="img-responsive" width="65%" alt="Relatórios"/>
-                            <br></br>
-                            <br></br>
-                            <h:link outcome="home-pages/relatorios-home_1" style="font-size: 17px; color: #333333" value="Relatórios" />
-                        </b:column>                            
+                        <h:link outcome="home-pages/artigos-home_1" style="font-size: 17px; color: #333333"  >
+                            <b:column col-xs="6" col-sm="3" styleClass="placeholder">
+                                <img src="resources/imagens/full-basket.png " class="img-responsive" width="65%" alt="Artigos"/>
+                                <br></br>
+                                <br></br>
+                                <h:link outcome="home-pages/artigos-home_1" style="font-size: 17px; color: #333333" value="Catálogo de Artigos" />
+                            </b:column>
+                        </h:link>        
+
+                        <h:link outcome="home-pages/clientes-home_1" style="font-size: 17px; color: #333333" >
+                            <b:column col-xs="6" col-sm="3" styleClass="placeholder">
+                                <img src="resources/imagens/group.png " class="img-responsive" width="65%" alt="Clientes"/>
+                                <br></br>
+                                <br></br>
+                                <h:link outcome="home-pages/clientes-home_1" style="font-size: 17px; color: #333333" value="Clientes" />
+                            </b:column>
+                        </h:link>  
+
+                        <h:link outcome="home-pages/relatorios-home_1" style="font-size: 17px; color: #333333" >
+                            <b:column col-xs="6" col-sm="3" styleClass="placeholder">
+                                <img src="resources/imagens/report.png " class="img-responsive" width="65%" alt="Relatórios"/>
+                                <br></br>
+                                <br></br>
+                                <h:link outcome="home-pages/relatorios-home_1" style="font-size: 17px; color: #333333" value="Relatórios" />
+                            </b:column>
+                        </h:link>                            
 
                     </b:row>
                 </b:column>
