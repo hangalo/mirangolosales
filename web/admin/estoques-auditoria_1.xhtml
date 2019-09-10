@@ -15,121 +15,89 @@
 
 
         <b:container fluid="true"> 
-            <b:column col-sm="9" col-md="12" >
-                <b:row>
-                    <b:column col-sm="9" col-md="12" styleClass="main">
-                        <h:form>
-                            <p:tabMenu style="float: right" activeIndex="#{param.i}">
-
-                                <p:menuitem value="Procurar por nome" outcome="/home-pages/artigos-home_1" style="color: #0066CC;">
-                                    <f:param name="i" value="0" />
-                                </p:menuitem>
-                                <p:menuitem value="Procurar por codigo de barras" outcome="/publico/catalogo-artigos-busca-por-codigo-de-barras_1" style="color: #0066CC;">
-                                    <f:param name="i" value="1" />
-                                </p:menuitem>
-                                <p:menuitem value="Catalogo Geral" outcome="/publico/catalogo-artigos_1" style="color: #0066CC;">
-                                    <f:param name="i" value="3" />
-                                </p:menuitem>
-
-                            </p:tabMenu>
-                        </h:form>
-                    </b:column>
-                </b:row>
-            </b:column>
-
 
             <b:column style="margin-top: -1.5%" col-sm="9" col-md="12" styleClass="main">
                 <f:view>
                     <b:panel look="primary">
                         <f:facet name="heading">
-                            <h:outputText style="text-align: center; color: white" value="ARTIGOS " />
+                            <h:outputText style="text-align: center; color: white" value="AUDITORIA ESTOQUE" />
                         </f:facet>
 
-                        <h:form  id="adicionarProdutos">
-                            <h:messages showDetail="true" showSummary="true"/>
-                            <b:growl id="addMessages"/>
-                            <b:panelGrid columns="1">
-                                <p:autoComplete style="margin-top: 0px; margin-right: 40px; float: right;" value="#{artigoMB.artigo}" completeMethod="#{artigoMB.queryArtigos}" var="artigo" itemValue="#{artigo}" itemLabel="#{artigo.nomeArtigo}"   maxResults="10" dropdown="true" forceSelection="true" requiredMessage="Seleccionar um valor" converter="artigoConverter" size="40">
-                                    <p:column>
-                                        <h:outputText value="#{artigo.nomeArtigo} (Stock: #{artigo.existencias} | Preço: #{artigo.precoArtigo})"/>
-                                    </p:column>
-                                    <p:ajax event="itemSelect" listener="#{artigoMB.selectListenerArtgiosPorNomeAutoComplete}" update="addMessages :formArtigosPorNome:dtArtigosPorNome" />
-                                </p:autoComplete>
-                            </b:panelGrid>
+
+
+
+                        <h:form style="float: right" id="formAuditoria">
+                            <h:messages/>
+                            <h:panelGrid columns="6" cellspacing="5%">
+                                <p:calendar placeholder="Início" style="margin-right:  10px" value="#{estoqueMB.inicio}" pattern="dd/MM/yyyy" id="inicio"/>
+                                <p:calendar placeholder="Fim" style="margin-right:  10px" value="#{estoqueMB.fim}" pattern="dd/MM/yyyy" id="fim"/>
+                                <b:commandButton style="margin-left: 6px" icon="search" styleClass="but but-primary" actionListener="#{estoqueMB.executarBuscarEstoqueEntreDatas}">
+                                    <f:ajax execute="formAuditoria:inicio formAuditoria:fim" render=":formDtAuditoria:dtAuditoria"/>
+                                </b:commandButton>
+                            </h:panelGrid>
+                            <br/>
                         </h:form>
-                        <br/>
 
-                        <h:form id="formArtigosPorNome">
 
-                            <b:dataTable  searching="false" id="dtArtigosPorNome" value="#{artigoMB.artigosPorNomes}" var="item" >
 
+
+                        <h:form id="formDtAuditoria">
+
+                            <b:dataTable id="dtAuditoria" value="#{estoqueMB.auditoriaEstoques}" var="item">
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['numero.registo']}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.idEstoque}"/>
+                                </p:column>
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['artigo.nome.artigo']}"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.nomeArtigo}" />
-                                </p:column>
-
-
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['artigo.preco']}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.precoArtigo}">
-                                        <f:convertNumber currencySymbol = "AO" type = "currency" locale="ao_AO" />
-                                    </h:outputText>
-                                </p:column>
-
-
-
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['artigo.existencias']}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.existencias}">
-                                        <f:convertNumber currencySymbol = "Kg" maxFractionDigits="0" type = "currency" locale="ao_AO" />
-                                    </h:outputText>
-                                </p:column>
-
-
-
-
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['artigo.codigo.barras']}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.codigoBarraArtigo}"/>
+                                    <h:outputText value="#{item.idArtigo.nomeArtigo}"/>
                                 </p:column>
                                 <p:column>
                                     <f:facet name="header">
                                         <h:outputText value="#{msg['artigo.codigo.comercial']}"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.codigoComercialArtigo}"/>
-                                </p:column>
-
-
-                                <p:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="#{msg['seccao.nome']}"/>
-                                    </f:facet>
-                                    <h:outputText value="#{item.idSeccao.nomeSeccao}"/>
+                                    <h:outputText value="#{item.idArtigo.codigoComercialArtigo}"/>
                                 </p:column>
                                 <p:column>
                                     <f:facet name="header">
-                                        <h:outputText value="#{msg['categoria.nome']}"/>
+                                        <h:outputText value="#{msg['data.entrada']}"/>
                                     </f:facet>
-                                    <h:outputText value="#{item.idCategoriaArtigo.nomeCategoriaArtigo}"/>
+                                    <h:outputText value="#{item.dataEntradaArtigo}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </h:outputText>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['artigo.existencias']}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.quantidadeArtigo}"/>
                                 </p:column>
 
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['data.validade']}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.validade}">
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                                    </h:outputText>
+                                </p:column>
 
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{msg['artigo.disponivel']}"/>
+                                    </f:facet>
+                                    <h:selectBooleanCheckbox value="#{item.disponivel}"/>
+                                </p:column>
                             </b:dataTable>
                         </h:form>
-
-
-
-
                     </b:panel>
+
                 </f:view>
+
             </b:column> 
         </b:container>
 
