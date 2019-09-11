@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/templates/templante_staff_add_1.xhtml">
+
+
+
+            <ui:define name="left">
+                left
+            </ui:define>
+
+            <ui:define name="content">
+
+                <f:view>
+
+                    <b:container fluid="true">
+                        <b:row>
+                            <b:column col-sm="9" col-md="12" styleClass="main">
+                                <b:panel look="link" title="SECTORES">
+                                    <h:form>
+                                        <b:commandButton icon="plus" type="button" onclick="PF('dlg3').show();" /> 
+                                        <br/><br/>
+                                    </h:form>
+
+                                    <b:panel look="primary" title="Lista">
+                                        <b:form id="frmSector">
+                                        <b:dataTable searching="false"  id="dtSector" value="#{sectorMB.sectores}" var="item">
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg['numero.registo']}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.idSector}"/>
+                                            </p:column>
+                                            <p:column>
+                                                <f:facet name="header">
+                                                    <h:outputText value="#{msg['sector.nome']}"/>
+                                                </f:facet>
+                                                <h:outputText value="#{item.nomeSector}"/>
+                                            </p:column>
+
+
+                                            <p:column style="text-align: center">
+
+                                                <f:facet name="header">Acção</f:facet>
+
+                                                <b:commandButton icon="erase" actionListener="#{sectorMB.delete}" update=":frmSector"/>
+
+
+                                            </p:column>
+                                        </b:dataTable>
+                                    </b:form>
+                                    </b:panel>
+
+
+                                    <p:dialog header="#{msg['sector.novo']}" widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="100">
+
+
+                                        <b:form id="formSector">
+                                            <p:growl id="glGuardar"/>
+
+                                            <p:panelGrid columns="2">
+
+                                                <p:outputLabel value="#{msg['sector.nome']}:" for="nomeSector" />
+                                                <p:inputText id="nomeSector" value="#{sectorMB.sector.nomeSector}" title="NomeSector" />
+                                            </p:panelGrid>
+                                            <p:commandButton value="#{app['button.guardar']}" actionListener="#{sectorMB.save}" ajax="false"  update="glGuardar" resetValues="true"/>
+
+                                        </b:form>
+
+
+                                    </p:dialog>
+                                </b:panel>
+                            </b:column>
+                        </b:row>
+                    </b:container>
+
+
+
+                </f:view>
+
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

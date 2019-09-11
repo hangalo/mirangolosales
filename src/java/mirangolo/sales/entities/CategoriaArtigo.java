@@ -101,7 +101,7 @@ public class CategoriaArtigo implements Serializable {
 
     @Override
     public String toString() {
-        return "mirangolo.sales.entities.CategoriaArtigo[ idCategoriaArtigo=" + idCategoriaArtigo + " ]";
+        return nomeCategoriaArtigo;
     }
     
 }

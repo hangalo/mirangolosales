@@ -114,7 +114,7 @@ public class Seccao implements Serializable {
 
     @Override
     public String toString() {
-        return "mirangolo.sales.entities.Seccao[ idSeccao=" + idSeccao + " ]";
+        return nomeSeccao;
     }
     
 }

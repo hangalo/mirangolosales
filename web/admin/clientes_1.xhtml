@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/templates/templante_staff_add_1.xhtml">
+
+
+            <ui:define name="content">
+
+                <f:view>
+                    <b:container fluid="true">
+                        <b:row>
+                            <b:column col-sm="9" col-md="12" styleClass="main">
+                                <b:panel look="primary" title="NOVO CLIENTE">
+                                    <b:form>
+                                        <b:growl id="msg"/>
+                                            <b:panelGrid columns="4">
+                                                <b:inputText placeholder="#{msg['nome']}" id="nomeCliente" value="#{clienteMB.cliente.nomeCliente}" title="NomeCliente"/>
+                                                <b:inputText placeholder="#{msg['sobrenome']}" id="sobrenomeCliente" value="#{clienteMB.cliente.sobrenomeCliente}" title="SobrenomeCliente"/>
+                                                <b:inputText placeholder="#{msg['casa']}" id="casaCliente" value="#{clienteMB.cliente.casaCliente}" title="CasaCliente" />
+                                                <b:inputText placeholder="#{msg['rua']}" id="ruaCliente" value="#{clienteMB.cliente.ruaCliente}" title="RuaCliente" />
+                                                <b:inputText placeholder="#{msg['bairro']}" id="bairroCliente" value="#{clienteMB.cliente.bairroCliente}" title="BairroCliente" />
+                                                <b:inputText placeholder="#{msg['distrito:']}" id="distritoCliente" value="#{clienteMB.cliente.distritoCliente}" title="DistritoCliente" />
+                                                <b:inputText placeholder="#{msg['telefone']}" id="telefonePrincipal" value="#{clienteMB.cliente.telefonePrincipal}" title="TelefonePrincipal" />
+                                                <b:inputText placeholder="#{msg['telemovel']}"  id="telemovelPrincipal" value="#{clienteMB.cliente.telemovelPrincipal}" title="TelemovelPrincipal"/>
+                                                <b:inputText placeholder="#{msg['email']}" id="emailPrincipal" value="#{clienteMB.cliente.emailPrincipal}" title="EmailPrincipal" />
+                                                <b:selectOneMenu id="municipio" value="#{clienteMB.cliente.idMunicipio}" select2="true" converter="municipioConverter" required="true" requiredMessage="The Municipio field is required.">
+                                                    <f:selectItem itemLabel="** Município **" itemValue="#{null}" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{localidadeMB.carregaMunicipios}"/>
+                                                </b:selectOneMenu>
+                                                <b:dateTimePicker show-time="false" placeholder="#{msg['data.cadastro']}" id="dataCadastro" value="#{clienteMB.cliente.dataCadastro}" />
+                                        </b:panelGrid>
+                                        <h:panelGrid columns="2">
+
+                                            <p:commandButton value="#{app['button.guardar']}" actionListener="#{clienteMB.save}" ajax="false" resetValues="true" update="msg"/>
+
+
+                                        </h:panelGrid>
+
+                                    </b:form>
+                                </b:panel>                                    
+                            </b:column>
+                        </b:row>
+                    </b:container>
+                </f:view>
+
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>

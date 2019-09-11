@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/templates/templante_staff_add_1.xhtml">
+
+            <ui:define name="content">
+                <f:view>   
+                    <b:container fluid="true">
+                        <b:row>
+                            <b:column col-sm="9" col-md="12" styleClass="main">
+                                <b:panel look="primary" title="NOVO ARTIGO">
+                                    <b:form>
+                                        <b:growl id="msg"/>
+                                        <b:panelGrid columns="4">
+                                            <b:inputText placeholder="#{msg['artigo.codigo.barras']}" id="codigoBarraArtigo" value="#{artigoMB.artigo.codigoBarraArtigo}" title="CodigoBarraArtigo" />
+                                            <b:inputText placeholder="#{msg['artigo.codigo.comercial']}" id="codigoComercialArtigo" value="#{artigoMB.artigo.codigoComercialArtigo}" title="CodigoComercialArtigo" />
+                                            <b:inputText placeholder="#{msg['artigo.nome.artigo']}" id="nomeArtigo" value="#{artigoMB.artigo.nomeArtigo}" title="NomeArtigo" size="60"/>
+                                            <b:inputText placeholder="#{msg['artigo.existencias']}" id="stock" value="#{artigoMB.artigo.existencias}" title="stock" size="10"/>
+                                        </b:panelGrid>
+
+                                        <b:panelGrid style="text-align: center" columns="4">
+                                            <b:inputText placeholder="#{msg['artigo.preco']}:" id="precoArtigo" value="#{artigoMB.artigo.precoArtigo}" title="PrecoArtigo"/> 
+                                            <b:selectOneMenu id="idCategoriaArtigo" value="#{artigoMB.artigo.idCategoriaArtigo}" select2="true" converter="categoriaArtigoConverter" required="true"  requiredMessage="The IdCategoriaArtigo field is required.">
+                                                <f:selectItem itemLabel="** Categoria **" noSelectionOption="true" />
+                                                <f:selectItems value="#{categoriaArtigoMB.categoriaArtigos}"/>
+                                            </b:selectOneMenu>
+
+                                            <b:selectOneMenu id="idSeccao" value="#{artigoMB.artigo.idSeccao}" select2="true" required="true" requiredMessage="The IdSeccao field is required." converter="seccaoConverter">
+                                                <f:selectItem itemLabel="Secção" noSelectionOption="true" />
+                                                <f:selectItems value="#{seccaoMB.seccoes}"/>
+                                            </b:selectOneMenu>
+                                        </b:panelGrid>
+
+                                        <h:panelGrid columns="2">
+                                            <p:commandButton value="#{app['button.guardar']}" actionListener="#{artigoMB.save}" ajax="false" update="msg" resetValues="true"/>
+                                        </h:panelGrid>
+                                    </b:form>
+                                </b:panel>
+                            </b:column>
+                        </b:row>
+                    </b:container>                               
+                </f:view>
+
+            </ui:define>
+
+
+
+        </ui:composition>
+
+    </body>
+</html>
