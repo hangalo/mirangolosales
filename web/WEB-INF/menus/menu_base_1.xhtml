@@ -13,15 +13,15 @@
 
 
         <b:navBar brand="" brandHref="index_1.jsf" inverse="true" fixed="top">
-            <h:link outcome="/index_1">
+            <h:link outcome="/admin/home-admin-add_1.jsf">
                 <h:graphicImage style="margin-top: 1%" library="imagens" name="house.png" height="25" width="25"/>
             </h:link>
-            <h:form id="frmLogar" styleClass="navbar-form navbar-right">
-
-                <p>Olá</p>
-                
-            </h:form>
-
+            <h5 style="margin-left: 75%; margin-top: -2.9%">
+                Bem Vindo, <b>#{loginMB.usuarioAutenticado.idFuncionario}</b> !!!
+                <b:form style="margin-left: 0%; margin-top: 0%">
+                    <b:commandButton action="#{loginMB.logout()}" icon="log-out" value="Sair" look="danger" size="xs"/>
+                </b:form>
+            </h5>
 
         </b:navBar>
 

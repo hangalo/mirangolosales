@@ -15,20 +15,20 @@
     <h:body>
         <ui:insert name="top">
             <ui:include src="../../WEB-INF/menus/menu_base_1.xhtml" />
-            <div id="container-menu" style="background-color: white; margin-left: 1.3%">
+            <div id="container-menu" style="background-color: white; margin-left: 7.5%">
                 <div id="box-container-menu">
                     <h:form>
                         <p:tabMenu activeIndex="#{param.i}">
-                            <p:menuitem value="Gestão de Artigos" outcome="/admin/artigos_1" style="color: #0066CC;">
+                            <p:menuitem value="Artigos" outcome="/admin/artigos_1" style="color: #0066CC;">
                                 <f:param name="i" value="0" />
                             </p:menuitem>
-                            <p:menuitem value="Gestão de clientes" outcome="/admin/clientes_1" style="color: #0066CC;">
+                            <p:menuitem value="Clientes" outcome="/admin/clientes_1" style="color: #0066CC;">
                                 <f:param name="i" value="1" />
                             </p:menuitem>
-                            <p:menuitem value="Gestão categorias dos Artigos" outcome="/admin/categoria-artigo_1" style="color: #0066CC;">
+                            <p:menuitem value="Categorias dos Artigos" outcome="/admin/categoria-artigo_1" style="color: #0066CC;">
                                 <f:param name="i" value="2" />
                             </p:menuitem>
-                            <p:menuitem value="Gestão de Sock" outcome="/admin/artigos-gestao-stock_1" style="color:#0066CC;">
+                            <p:menuitem value="Sock" outcome="/admin/artigos-gestao-stock_1" style="color:#0066CC;">
                                 <f:param name="i" value="3" />
                             </p:menuitem>
                             <p:menuitem value="Formas de pagamento" outcome="/admin/formas-pagamento_1" style="color: #0066CC;">
@@ -50,6 +50,10 @@
 
                             <p:menuitem value="Sectores" outcome="/admin/sectores_1" style="color:#0066CC;">
                                 <f:param name="i" value="8" />
+                            </p:menuitem>
+                            
+                            <p:menuitem value="Usuários" outcome="/admin/usuarios" style="color:#0066CC;">
+                                <f:param name="i" value="9" />
                             </p:menuitem>
 
                         </p:tabMenu>

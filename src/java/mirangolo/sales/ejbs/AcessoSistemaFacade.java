@@ -5,9 +5,11 @@
  */
 package mirangolo.sales.ejbs;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import mirangolo.sales.entities.AcessoSistema;
 
 /**
@@ -27,6 +29,19 @@ public class AcessoSistemaFacade extends AbstractFacade<AcessoSistema> {
 
     public AcessoSistemaFacade() {
         super(AcessoSistema.class);
+    }
+    
+    public AcessoSistema encontrarUsuarioLogin(String nomeUsuario){
+        Query query = em.createNamedQuery("AcessoSistema.findByLogin", AcessoSistema.class)
+                .setParameter("login", nomeUsuario);
+        List <AcessoSistema> listado = query.getResultList();
+        
+        if(!listado.isEmpty()){
+            return listado.get(0);
+        }
+        
+        return null;
+            
     }
     
 }

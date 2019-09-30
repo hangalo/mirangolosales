@@ -16,30 +16,20 @@
             <h:link outcome="/index_1">
                 <h:graphicImage style="margin-top: 1%" library="imagens" name="house.png" height="25" width="25"/>
             </h:link>
-            <h:form id="frmLogar" styleClass="navbar-form navbar-right">
-
-
-                <div class="form-group">
-                    <b:inputText value="#{loginMB.usuario}" placeholder="Email" fieldSize="sm"/>
-                    <!--input type="text" class="form-control" placeholder="Search"/-->
-                </div>
-                <div class="form-group">
-                    <b:inputSecret value="#{loginMB.senha}" placeholder="Senha" fieldSize="sm"/>
-                </div> 
-                <div class="form-group">
-                    <b:commandButton action="#{loginMB.logar()}" size="sm" value="Entrar" look="success" icon="chevron-right" iconAlign="right"/>
-                </div> 
-                 <!--
-                <div class="form-group">
-                     <p:commandButton id="btnFrmLogar" value="Entrar"  action="#//{loginMB.logar()}">
-                         
-                     </p:commandButton>
-                </div>
-                 -->
-                
-            </h:form>
-
-
+            
+            <b:panelGrid columns="1" id="hpglogin" >
+                <h:form style="margin-top: -40px" styleClass="navbar-form navbar-right">
+                    <b:growl id="growl"/>
+                    <div class="form-group">
+                        <b:inputText placeholder="Email" fieldSize="sm" id="usuario" value="#{loginMB.nomeUsuario}"/>
+                    </div>
+                    <div class="form-group">
+                        <b:inputText placeholder="Senha" fieldSize="sm" value="#{loginMB.password}" id="senha" type="password" />
+                    </div> 
+                    <b:commandButton action="#{loginMB.autenticar()}" update="hpglogin, growl" value="Entrar" look="success" icon="chevron-right" iconAlign="right"/>
+                </h:form>
+            </b:panelGrid>
+            
         </b:navBar>
 
 

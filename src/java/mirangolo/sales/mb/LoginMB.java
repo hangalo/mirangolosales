@@ -6,67 +6,85 @@
 package mirangolo.sales.mb;
 
 import java.io.IOException;
-import javax.annotation.PostConstruct;
+import java.io.Serializable;
+import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
-/**
- *
- * @author informatica
- */
-@Named(value = "loginMB")
-@RequestScoped
-public class LoginMB {
+import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+import mirangolo.sales.ejbs.AcessoSistemaFacade;
+import mirangolo.sales.entities.AcessoSistema;
+import mirangolo.sales.filters.Util;
 
-    private String usuario;
-    private String senha;
+@Named(value = "loginMB")
+@SessionScoped
+public class LoginMB implements Serializable {
+
+    private String nomeUsuario;
+    private String password;
+
+    @EJB
+    AcessoSistemaFacade acessoSistemaFacade;
+
+    private AcessoSistema usuarioAutenticado;
+
+    public AcessoSistema getUsuarioAutenticado() {
+        return usuarioAutenticado;
+    }
+
+    public void setUsuarioAutenticado(AcessoSistema usuarioAutenticado) {
+        this.usuarioAutenticado = usuarioAutenticado;
+    }
+
+    public String getNomeUsuario() {
+        return nomeUsuario;
+    }
+
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String Password) {
+        this.password = Password;
+    }
 
     public LoginMB() {
     }
 
-    @PostConstruct
-    public void init() {
+    public String autenticar() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        usuarioAutenticado = acessoSistemaFacade.encontrarUsuarioLogin(nomeUsuario);
+        if (usuarioAutenticado != null) {
+            context.getExternalContext().getSessionMap().put("login", nomeUsuario);
+            if (usuarioAutenticado.getPassword().equals(password)) {
+                HttpSession hs = Util.getSession();
+                hs.setAttribute("login", nomeUsuario);
+                try {
+                    context.getExternalContext().redirect("admin/home-admin-add_1.jsf");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Senha Inexistente! Tente Novamente.", "A Senha não Existe"));
+            return null;
+        }
 
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Usuário Inexistente! Tente Novamente.", "O Usuário não Existe"));
+        return null;
     }
 
-    public String logar() throws IOException {
-        String pagina = "/home-pages/admin-entrata-home_1?faces-redirect=true";
-        //FacesContext context = FacesContext.getCurrentInstance();
-        if (this.usuario.equals("Elisio") && this.senha.equals("1234")) {
-            /*try {
-                context.getExternalContext().redirect("/mirangolosales/home-pages/admin-entrata-home_1.jsf");
-
-            } catch (Exception e) {
-                System.out.println("Erro ao logar!  " + e.getMessage());
-            }*/
-          
-            return pagina;
-        } else {
-            /*try {
-                context.getExternalContext().redirect("/mirangolosales/index_1.jsf");
-            } catch (Exception e) {
-                 System.out.println("Erro ao logar 2!  " + e.getMessage());
-            }*/
-            
-            
-            pagina = "/index_1?faces-redirect=true";
-            return pagina;
+    public void logout() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().invalidateSession();
+        try {
+            context.getExternalContext().redirect("/mirangolosales/index_1.jsf");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
 }

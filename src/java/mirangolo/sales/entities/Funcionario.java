@@ -221,7 +221,7 @@ public class Funcionario implements Serializable {
 
     @Override
     public String toString() {
-        return "mirangolo.sales.entities.Funcionario[ idFuncionario=" + idFuncionario + " ]";
+        return nomeFuncionario + " " + sobrenomeFuncionario;
     }
     
 }

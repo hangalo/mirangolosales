@@ -22,7 +22,7 @@ import mirangolo.sales.entities.Funcionario;
  * @author Francis
  */
 @FacesConverter(value = "funcionarioConverter")
-public class FuncionarioConverter implements Converter {
+public class FuncionarioConverter1 implements Converter {
 
     FuncionarioFacade funcionarioFacade = lookupFuncionarioFacadeBean();
 
@@ -35,7 +35,7 @@ public class FuncionarioConverter implements Converter {
 
         Funcionario funcionario;
         if (value != null) {
-            funcionario = (Funcionario) funcionarioFacade.find(Integer.parseInt(value));
+            funcionario = (Funcionario) funcionarioFacade.find(value);
             return funcionario;
         }
 
